@@ -1,9 +1,11 @@
 import React, { ReactElement } from 'react'
 
+import Signup from './pages/Signup'
+
 const App: React.FC = (): ReactElement => (
     <div className="App">
         <header className="App-header">
-            <p>Hello World!</p>
+            <Signup />
         </header>
     </div>
 )
