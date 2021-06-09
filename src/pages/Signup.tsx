@@ -1,8 +1,21 @@
-import React, { ReactElement } from 'react'
-
+import React, { useState, FormEvent, ReactElement } from 'react'
 import styles from './Signup.styles'
 
+import { handleRegister } from '../requests/auth'
+
+const onRegisterSubmit = (
+    event: FormEvent,
+    username: string,
+    password: string
+): void => {
+    event.preventDefault()
+    handleRegister(username, password)
+}
+
 const Signup = (): ReactElement => {
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+
     return (
         <div className={styles.signUpContainer}>
             <div className={styles.logoAndHeaderContainer}>
@@ -18,8 +31,10 @@ const Signup = (): ReactElement => {
                 <div className={styles.signUpFormWrapper}>
                     <form
                         className={styles.signUpForm}
-                        action="#"
                         method="POST"
+                        onSubmit={(event) =>
+                            onRegisterSubmit(event, username, password)
+                        }
                     >
                         <div>
                             <div>
@@ -35,6 +50,9 @@ const Signup = (): ReactElement => {
                                         title="usernameInput"
                                         required
                                         className={styles.usernameInput}
+                                        onChange={(event) =>
+                                            setUsername(event.target.value)
+                                        }
                                     />
                                 </label>
                             </div>
@@ -54,6 +72,9 @@ const Signup = (): ReactElement => {
                                         title="passwordInput"
                                         required
                                         className={styles.passwordInput}
+                                        onChange={(event) =>
+                                            setPassword(event.target.value)
+                                        }
                                     />
                                 </label>
                             </div>
