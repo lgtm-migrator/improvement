@@ -1,9 +1,16 @@
-import axios, { AxiosResponse } from 'axios'
+/* eslint-disable camelcase */
+import axios from 'axios'
+
+type SignupResponse = {
+    access_token: string
+    token_type: string
+    detail?: string
+}
 
 export const handleRegister = async (
     username: string,
     password: string
-): Promise<AxiosResponse> => {
+): Promise<SignupResponse> => {
     const config = {
         headers: {
             'Content-Type': 'multipart/form-data',

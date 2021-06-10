@@ -1,0 +1,11 @@
+// https://github.com/cypress-io/cypress-and-jest-typescript-example
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "noEmit": true,
+        "target": "es5",
+        "lib": ["es5", "dom"],
+        "types": ["cypress", "node"]
+    },
+    "include": ["../node_modules/cypress", "./**/*.ts"]
+}

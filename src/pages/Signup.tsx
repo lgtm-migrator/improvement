@@ -1,4 +1,6 @@
 import React, { useState, FormEvent, ReactElement } from 'react'
+import { Redirect } from 'react-router-dom'
+
 import styles from './Signup.styles'
 
 import { handleRegister } from '../requests/auth'
@@ -9,12 +11,21 @@ const onRegisterSubmit = (
     password: string
 ): void => {
     event.preventDefault()
-    handleRegister(username, password)
+    handleRegister(username, password).then((data) => {
+        localStorage.setItem('accessToken', data.access_token)
+        window.location.reload()
+    })
 }
 
-const Signup = (): ReactElement => {
+const Signup: React.FC<{ isAuthenticated: boolean }> = ({
+    isAuthenticated,
+}): ReactElement => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+
+    if (isAuthenticated) {
+        return <Redirect to="/dashboard" />
+    }
 
     return (
         <div className={styles.signUpContainer}>
