@@ -22,6 +22,25 @@ describe('index page', () => {
 
         cy.location('pathname').should('equal', '/dashboard')
     })
+
+    it('should sign in a user', () => {
+        const testuser = createRandomUser()
+
+        cy.signup(testuser)
+
+        cy.location('pathname').should('equal', '/dashboard')
+
+        cy.contains('button', 'Logout').click()
+
+        cy.contains('a', 'Sign In').click()
+
+        cy.get('input[id="username"]').type(testuser.username)
+        cy.get('input[id="password"]').type(testuser.password)
+        cy.contains('button', 'Sign in').click()
+
+        cy.location('pathname').should('equal', '/dashboard')
+        cy.contains('button', 'Logout')
+    })
 })
 
 export {}

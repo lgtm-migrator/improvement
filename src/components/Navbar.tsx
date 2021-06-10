@@ -1,7 +1,14 @@
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
-const Navbar: React.FC = (): ReactElement => (
+const handleLogout = () => {
+    localStorage.removeItem('accessToken')
+    window.location.reload()
+}
+
+const Navbar: React.FC<{ isAuthenticated: boolean }> = ({
+    isAuthenticated,
+}): ReactElement => (
     <nav>
         <ul className="flex place-content-evenly">
             <li>
@@ -16,6 +23,13 @@ const Navbar: React.FC = (): ReactElement => (
             <li>
                 <Link to="/dashboard">Dashboard</Link>
             </li>
+            {isAuthenticated && (
+                <li>
+                    <button onClick={handleLogout} type="button">
+                        Logout
+                    </button>
+                </li>
+            )}
         </ul>
         <hr />
     </nav>

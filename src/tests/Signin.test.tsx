@@ -1,14 +1,14 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import Signup from '../pages/Signup'
+import Signin from '../pages/Signin'
 
-it('should render sign up page', () => {
-    const { queryByTitle } = render(<Signup isAuthenticated={false} />)
+it('should render sign in page', () => {
+    const { queryByTitle } = render(<Signin isAuthenticated={false} />)
     const usernameInput = queryByTitle('usernameInput')
     const passwordInput = queryByTitle('passwordInput')
-    const signUpBtn = queryByTitle('signupBtn')
+    const signInBtn = queryByTitle('signinBtn')
 
     expect(usernameInput).toBeInTheDocument()
     expect(passwordInput).toBeInTheDocument()
-    expect(signUpBtn).toBeInTheDocument()
+    expect(signInBtn).toBeInTheDocument()
 })

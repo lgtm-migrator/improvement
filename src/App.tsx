@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { RecoilRoot, useRecoilValue } from 'recoil'
 
 import Signup from './pages/Signup'
+import Signin from './pages/Signin'
 import Dashboard from './pages/Dashboard'
 import Navbar from './components/Navbar'
 import { loadUserProfile } from './state/auth'
@@ -13,7 +14,7 @@ const AppContainer: React.FC = (): ReactElement => {
     return (
         <Router>
             <div>
-                <Navbar />
+                <Navbar isAuthenticated={userState.isAuthenticated} />
 
                 <Switch>
                     <Route exact path="/">
@@ -25,9 +26,7 @@ const AppContainer: React.FC = (): ReactElement => {
                         <Signup isAuthenticated={userState.isAuthenticated} />
                     </Route>
                     <Route exact path="/signin">
-                        <div className="grid place-items-center h-screen">
-                            <h2>Sign in</h2>
-                        </div>
+                        <Signin isAuthenticated={userState.isAuthenticated} />
                     </Route>
                     <Route
                         path="/dashboard"

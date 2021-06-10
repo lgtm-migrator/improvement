@@ -1,22 +1,22 @@
 /* eslint-disable camelcase */
 import axios from 'axios'
 
-type SignupResponse = {
+type AuthResponse = {
     access_token: string
     token_type: string
     detail?: string
 }
 
+const authConfig = {
+    headers: {
+        'Content-Type': 'multipart/form-data',
+    },
+}
+
 export const handleRegister = async (
     username: string,
     password: string
-): Promise<SignupResponse> => {
-    const config = {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-        },
-    }
-
+): Promise<AuthResponse> => {
     const body = new FormData()
     body.append('username', username)
     body.append('password', password)
@@ -24,7 +24,23 @@ export const handleRegister = async (
     const res = await axios.post(
         'http://localhost:8000/api/auth/register',
         body,
-        config
+        authConfig
+    )
+    return res.data
+}
+
+export const handleLogin = async (
+    username: string,
+    password: string
+): Promise<AuthResponse> => {
+    const body = new FormData()
+    body.append('username', username)
+    body.append('password', password)
+
+    const res = await axios.post(
+        'http://localhost:8000/api/auth/access-token',
+        body,
+        authConfig
     )
     return res.data
 }
