@@ -28,6 +28,16 @@
         "@typescript-eslint/no-shadow": ["error"],
         "@typescript-eslint/no-unused-vars": "error",
         "@typescript-eslint/no-use-before-define": ["error"],
+        "jsx-a11y/label-has-associated-control": [
+            "error",
+            {
+                "labelComponents": [],
+                "labelAttributes": [],
+                "controlComponents": [],
+                "assert": "either",
+                "depth": 25
+            }
+        ],
         "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",

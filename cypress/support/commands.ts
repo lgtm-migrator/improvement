@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('signup', ({ username, password }) => {
-    cy.contains('a', 'Sign Up').click()
+    cy.contains('a', 'Sign up').click()
 
     cy.contains('Username').find('input').type(username)
     cy.contains('Password').find('input').type(password)

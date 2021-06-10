@@ -6,12 +6,12 @@ describe('index page', () => {
     })
 
     it('should go to the sign up page', () => {
-        cy.contains('a', 'Sign Up').click()
+        cy.contains('a', 'Sign up').click()
         cy.location('pathname').should('equal', '/signup')
     })
 
     it('should go to the sign in page', () => {
-        cy.contains('a', 'Sign In').click()
+        cy.contains('a', 'Sign in').click()
         cy.location('pathname').should('equal', '/signin')
     })
 
@@ -30,16 +30,16 @@ describe('index page', () => {
 
         cy.location('pathname').should('equal', '/dashboard')
 
-        cy.contains('button', 'Logout').click()
+        cy.get('button[title="profiledropdown"]').click()
+        cy.contains('button', 'Sign out').click()
 
-        cy.contains('a', 'Sign In').click()
+        cy.contains('a', 'Sign in').click()
 
         cy.get('input[id="username"]').type(testuser.username)
         cy.get('input[id="password"]').type(testuser.password)
         cy.contains('button', 'Sign in').click()
 
         cy.location('pathname').should('equal', '/dashboard')
-        cy.contains('button', 'Logout')
     })
 })
 
