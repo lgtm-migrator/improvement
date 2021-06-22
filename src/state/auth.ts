@@ -13,7 +13,7 @@ export const loadUserProfile = selector({
             // try fetching user profile by using it
             try {
                 const res = await axios.get(
-                    'http://localhost:8000/api/user/me',
+                    `${process.env.REACT_APP_API_URL}/api/user/me`,
                     headersConfigWithToken(accessToken)
                 )
                 const isAuthenticated = true
