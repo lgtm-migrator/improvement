@@ -3,25 +3,30 @@ import { Link } from 'react-router-dom'
 import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 
+import styles from './NavSignedOut.styles'
+
 const NavSignedOut: React.FC = (): ReactElement => {
     return (
         <header>
             <Popover className="relative bg-white">
                 {({ open }) => (
                     <>
-                        <div className="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
+                        <div className={styles.headerItemsContainer}>
                             <div className="flex justify-start lg:w-0 lg:flex-1">
                                 <Link to="/">
                                     <span className="sr-only">improvement</span>
                                     <img
                                         className="h-8 w-auto sm:h-10"
+                                        // eslint-disable-next-line max-len
                                         src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg"
                                         alt=""
                                     />
                                 </Link>
                             </div>
                             <div className="-mr-2 -my-2 md:hidden">
-                                <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                                <Popover.Button
+                                    className={styles.mobilePopoverBtn}
+                                >
                                     <span className="sr-only">Open menu</span>
                                     <MenuIcon
                                         className="h-6 w-6"
@@ -32,13 +37,13 @@ const NavSignedOut: React.FC = (): ReactElement => {
                             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
                                 <Link
                                     to="/signin"
-                                    className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+                                    className={styles.signInLink}
                                 >
                                     Sign in
                                 </Link>
                                 <Link
                                     to="/signup"
-                                    className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
+                                    className={styles.signUpLink}
                                 >
                                     Sign up
                                 </Link>
@@ -58,20 +63,25 @@ const NavSignedOut: React.FC = (): ReactElement => {
                             <Popover.Panel
                                 focus
                                 static
-                                className="absolute z-30 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
+                                className={styles.mobilePopoverPanel}
                             >
-                                <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
+                                <div className={styles.mobilePopoverContainer}>
                                     <div className="pt-5 pb-6 px-5">
                                         <div className="flex items-center justify-between">
                                             <div>
                                                 <img
                                                     className="h-8 w-auto"
+                                                    // eslint-disable-next-line max-len
                                                     src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg"
                                                     alt="Workflow"
                                                 />
                                             </div>
                                             <div className="-mr-2">
-                                                <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                                                <Popover.Button
+                                                    className={
+                                                        styles.mobileCloseMenu
+                                                    }
+                                                >
                                                     <span className="sr-only">
                                                         Close menu
                                                     </span>
@@ -87,13 +97,17 @@ const NavSignedOut: React.FC = (): ReactElement => {
                                         <div className="mt-6">
                                             <Link
                                                 to="/signup"
-                                                className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
+                                                className={
+                                                    styles.mobileSignupLink
+                                                }
                                             >
                                                 Sign up
                                             </Link>
                                             <Link
                                                 to="/signin"
-                                                className="mt-2 border-indigo-600 flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-gray-500"
+                                                className={
+                                                    styles.mobileSigninLink
+                                                }
                                             >
                                                 Sign in
                                             </Link>

@@ -14,7 +14,10 @@ const AppContainer: React.FC = (): ReactElement => {
     return (
         <Router>
             <div>
-                <Navbar isAuthenticated={userState.isAuthenticated} />
+                <Navbar
+                    user={userState.user}
+                    isAuthenticated={userState.isAuthenticated}
+                />
 
                 <Switch>
                     <Route exact path="/">

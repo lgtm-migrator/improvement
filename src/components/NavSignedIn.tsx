@@ -1,20 +1,13 @@
-import React, { Fragment, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { Popover } from '@headlessui/react'
 import { SearchIcon } from '@heroicons/react/solid'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 
+import { User } from '../types/user'
+import styles from './NavSignedIn.styles'
 import ProfileDropdown from './ProfileDropdown'
 import MobilePopoverMenu from './MobilePopoverMenu'
-
-// TODO: Replace this placeholder stuff
-
-const user = {
-    name: 'Chelsea Hagon',
-    email: 'chelseahagon@example.com',
-    imageUrl:
-        'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
 
 const userNavigation = [
     { name: 'Your Profile', href: '#' },
@@ -25,10 +18,12 @@ function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-const NavSignedIn = (): ReactElement => {
+const NavSignedIn: React.FC<{ user: User }> = ({ user }): ReactElement => {
     return (
         <>
-            {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
+            {/* 
+                When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars 
+            */}
             <Popover
                 as="header"
                 className={({ open }) =>
@@ -47,6 +42,7 @@ const NavSignedIn = (): ReactElement => {
                                         <Link to="/dashboard">
                                             <img
                                                 className="block h-8 w-auto"
+                                                // eslint-disable-next-line max-len
                                                 src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600"
                                                 alt="improvement"
                                             />
@@ -54,7 +50,7 @@ const NavSignedIn = (): ReactElement => {
                                     </div>
                                 </div>
                                 <div className="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
-                                    <div className="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
+                                    <div className={styles.searchContainer}>
                                         <div className="w-full">
                                             <label
                                                 htmlFor="search"
@@ -63,7 +59,11 @@ const NavSignedIn = (): ReactElement => {
                                                 Search
                                             </label>
                                             <div className="relative">
-                                                <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                                                <div
+                                                    className={
+                                                        styles.searchIconWrapper
+                                                    }
+                                                >
                                                     <SearchIcon
                                                         className="h-5 w-5 text-gray-400"
                                                         aria-hidden="true"
@@ -72,7 +72,9 @@ const NavSignedIn = (): ReactElement => {
                                                 <input
                                                     id="search"
                                                     name="search"
-                                                    className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                    className={
+                                                        styles.searchInput
+                                                    }
                                                     placeholder="Search"
                                                     type="search"
                                                 />
@@ -84,7 +86,7 @@ const NavSignedIn = (): ReactElement => {
                                     {/* Mobile menu button */}
                                     <Popover.Button
                                         title="profiledropdown"
-                                        className="-mx-2 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                                        className={styles.mobileMenuBtn}
                                     >
                                         <span className="sr-only">
                                             Open menu

@@ -1,6 +1,8 @@
 import React, { ReactElement } from 'react'
 import { Menu } from '@headlessui/react'
 
+import styles from './SignoutBtn.styles'
+
 const handleLogout = () => {
     localStorage.removeItem('accessToken')
     window.location.reload()
@@ -18,7 +20,7 @@ const SignoutBtn = (): ReactElement => (
                 onClick={handleLogout}
                 className={classNames(
                     active ? 'bg-gray-100' : '',
-                    'block py-2 px-4 text-sm text-gray-700'
+                    'flex py-2 px-4 text-sm text-gray-700 w-full'
                 )}
             >
                 Sign out
@@ -31,7 +33,7 @@ const MobileSignoutBtn = (): ReactElement => (
     <button
         type="button"
         onClick={handleLogout}
-        className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+        className={styles.mobileSignoutBtn}
     >
         Sign out
     </button>

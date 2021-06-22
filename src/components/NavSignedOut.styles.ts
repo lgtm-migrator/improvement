@@ -1,0 +1,132 @@
+import cntl from 'cntl'
+
+export default {
+    headerItemsContainer: cntl`
+        flex 
+        justify-between 
+        items-center 
+        max-w-7xl 
+        mx-auto 
+        px-4 
+        py-6 
+        sm:px-6 
+        md:justify-start 
+        md:space-x-10 
+        lg:px-8
+    `,
+    mobilePopoverBtn: cntl`
+        bg-white 
+        rounded-md 
+        p-2 
+        inline-flex 
+        items-center 
+        justify-center 
+        text-gray-400 
+        hover:text-gray-500 
+        hover:bg-gray-100 
+        focus:outline-none 
+        focus:ring-2 
+        focus:ring-inset 
+        focus:ring-indigo-500
+    `,
+    signInLink: cntl`
+        whitespace-nowrap 
+        text-base 
+        font-medium 
+        text-gray-500 
+        hover:text-gray-900
+    `,
+    signUpLink: cntl`
+        ml-8 
+        whitespace-nowrap 
+        inline-flex 
+        items-center 
+        justify-center 
+        px-4 
+        py-2 
+        border 
+        border-transparent 
+        rounded-md 
+        shadow-sm 
+        text-base 
+        font-medium 
+        text-white 
+        bg-gradient-to-r 
+        from-purple-600 
+        to-indigo-600 
+        hover:from-purple-700 
+        hover:to-indigo-700
+    `,
+    mobilePopoverPanel: cntl`
+        absolute 
+        z-30 
+        top-0 
+        inset-x-0 
+        p-2 
+        transition 
+        transform 
+        origin-top-right 
+        md:hidden
+    `,
+    mobilePopoverContainer: cntl`
+        rounded-lg 
+        shadow-lg 
+        ring-1 
+        ring-black 
+        ring-opacity-5 
+        bg-white 
+        divide-y-2 
+        divide-gray-50
+    `,
+    mobileCloseMenu: cntl`
+        bg-white 
+        rounded-md 
+        p-2 
+        inline-flex 
+        items-center 
+        justify-center 
+        text-gray-400 
+        hover:text-gray-500 
+        hover:bg-gray-100 
+        focus:outline-none 
+        focus:ring-2 
+        focus:ring-inset 
+        focus:ring-indigo-500
+    `,
+    mobileSignupLink: cntl`
+        w-full 
+        flex 
+        items-center 
+        justify-center 
+        px-4 
+        py-2 
+        border 
+        border-transparent 
+        rounded-md 
+        shadow-sm 
+        text-base 
+        font-medium 
+        text-white 
+        bg-gradient-to-r 
+        from-purple-600 
+        to-indigo-600 
+        hover:from-purple-700 
+        hover:to-indigo-700
+    `,
+    mobileSigninLink: cntl`
+        mt-2 
+        border-indigo-600 
+        flex 
+        items-center 
+        justify-center 
+        px-4 
+        py-2 
+        border 
+        border-transparent 
+        rounded-md 
+        shadow-sm 
+        text-base 
+        font-medium 
+        text-gray-500
+    `,
+}

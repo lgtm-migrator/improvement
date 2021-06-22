@@ -1,15 +1,12 @@
 import React, { Fragment, ReactElement } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 
+import styles from './ProfileDropdown.styles'
+import { ProfileMenuItemsType } from '../types/user'
 import { SignoutBtn } from './SignoutBtn'
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
-}
-
-export type ProfileMenuItemsType = {
-    user: { name: string; email: string; imageUrl: string }
-    userNavigation: { name: string; href: string }[]
 }
 
 const ProfileDropdown: React.FC<ProfileMenuItemsType> = ({
@@ -25,7 +22,7 @@ const ProfileDropdown: React.FC<ProfileMenuItemsType> = ({
             {({ open }) => (
                 <>
                     <div>
-                        <Menu.Button className="bg-white rounded-full flex focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <Menu.Button className={styles.userMenuBtn}>
                             <span className="sr-only">Open user menu</span>
                             <img
                                 className="h-8 w-8 rounded-full"
@@ -44,10 +41,7 @@ const ProfileDropdown: React.FC<ProfileMenuItemsType> = ({
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                     >
-                        <Menu.Items
-                            static
-                            className="origin-top-right absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none"
-                        >
+                        <Menu.Items static className={styles.menuItems}>
                             {userNavigation.map((item) => (
                                 <Menu.Item key={item.name}>
                                     {({ active }) => (
