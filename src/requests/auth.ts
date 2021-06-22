@@ -22,7 +22,7 @@ export const handleRegister = async (
     body.append('password', password)
 
     const res = await axios.post(
-        'http://localhost:8000/api/auth/register',
+        `${process.env.REACT_APP_API_URL}/api/auth/register`,
         body,
         authConfig
     )
@@ -38,7 +38,7 @@ export const handleLogin = async (
     body.append('password', password)
 
     const res = await axios.post(
-        'http://localhost:8000/api/auth/access-token',
+        `${process.env.REACT_APP_API_URL}/api/auth/access-token`,
         body,
         authConfig
     )
