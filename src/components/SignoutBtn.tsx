@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react'
 import { Menu } from '@headlessui/react'
 
-import styles from './SignoutBtn.styles'
-
 const handleLogout = () => {
     localStorage.removeItem('accessToken')
     window.location.reload()
@@ -29,14 +27,4 @@ const SignoutBtn = (): ReactElement => (
     </Menu.Item>
 )
 
-const MobileSignoutBtn = (): ReactElement => (
-    <button
-        type="button"
-        onClick={handleLogout}
-        className={styles.mobileSignoutBtn}
-    >
-        Sign out
-    </button>
-)
-
-export { SignoutBtn, MobileSignoutBtn }
+export default SignoutBtn

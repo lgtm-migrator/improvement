@@ -30,7 +30,7 @@ describe('index page', () => {
 
         cy.location('pathname').should('equal', '/dashboard')
 
-        cy.get('button[title="profiledropdown"]').click()
+        cy.get('div[id="profiledropdown"]').click()
         cy.contains('button', 'Sign out').click()
 
         cy.contains('a', 'Sign in').click()

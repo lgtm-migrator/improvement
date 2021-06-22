@@ -5,7 +5,7 @@ import { RecoilRoot, useRecoilValue } from 'recoil'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Dashboard from './pages/Dashboard'
-import Navbar from './components/Navbar'
+import NavSignedOut from './components/NavSignedOut'
 import { loadUserProfile } from './state/auth'
 
 const AppContainer: React.FC = (): ReactElement => {
@@ -14,10 +14,7 @@ const AppContainer: React.FC = (): ReactElement => {
     return (
         <Router>
             <div>
-                <Navbar
-                    user={userState.user}
-                    isAuthenticated={userState.isAuthenticated}
-                />
+                {!userState.isAuthenticated && <NavSignedOut />}
 
                 <Switch>
                     <Route exact path="/">
@@ -35,6 +32,7 @@ const AppContainer: React.FC = (): ReactElement => {
                         path="/dashboard"
                         render={() => (
                             <Dashboard
+                                user={userState.user}
                                 isAuthenticated={userState.isAuthenticated}
                             />
                         )}

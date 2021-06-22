@@ -3,7 +3,7 @@ import { Menu, Transition } from '@headlessui/react'
 
 import styles from './ProfileDropdown.styles'
 import { ProfileMenuItemsType } from '../types/user'
-import { SignoutBtn } from './SignoutBtn'
+import SignoutBtn from './SignoutBtn'
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -14,14 +14,10 @@ const ProfileDropdown: React.FC<ProfileMenuItemsType> = ({
     userNavigation,
 }): ReactElement => {
     return (
-        <Menu
-            as="div"
-            id="profiledropdown"
-            className="flex-shrink-0 relative ml-5"
-        >
+        <Menu as="div" className="flex-shrink-0 relative ml-5">
             {({ open }) => (
                 <>
-                    <div>
+                    <div id="profiledropdown">
                         <Menu.Button className={styles.userMenuBtn}>
                             <span className="sr-only">Open user menu</span>
                             <img
