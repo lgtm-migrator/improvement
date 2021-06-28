@@ -9,7 +9,11 @@ function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
+const dummyImgUrl =
+    'https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg'
+
 const ProfileDropdown: React.FC<ProfileMenuItemsType> = ({
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     user,
     userNavigation,
 }): ReactElement => {
@@ -22,7 +26,7 @@ const ProfileDropdown: React.FC<ProfileMenuItemsType> = ({
                             <span className="sr-only">Open user menu</span>
                             <img
                                 className="h-8 w-8 rounded-full"
-                                src={user.imageUrl}
+                                src={dummyImgUrl}
                                 alt=""
                             />
                         </Menu.Button>

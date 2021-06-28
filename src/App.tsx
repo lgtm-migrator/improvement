@@ -1,12 +1,18 @@
 import React, { ReactElement, Suspense } from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect,
+} from 'react-router-dom'
 import { RecoilRoot, useRecoilValue } from 'recoil'
 
+import { loadUserProfile } from './state/auth'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Dashboard from './pages/Dashboard'
 import NavSignedOut from './components/NavSignedOut'
-import { loadUserProfile } from './state/auth'
+import NavSignedIn from './components/NavSignedIn'
 
 const AppContainer: React.FC = (): ReactElement => {
     const userState = useRecoilValue(loadUserProfile)
@@ -28,15 +34,17 @@ const AppContainer: React.FC = (): ReactElement => {
                     <Route exact path="/signin">
                         <Signin isAuthenticated={userState.isAuthenticated} />
                     </Route>
-                    <Route
-                        path="/dashboard"
-                        render={() => (
-                            <Dashboard
-                                user={userState.user}
-                                isAuthenticated={userState.isAuthenticated}
-                            />
+                    {/* Signed in routes */}
+                    <NavSignedIn user={userState.user}>
+                        {!userState.isAuthenticated && (
+                            <Redirect to="/signin" />
                         )}
-                    />
+                        <Switch>
+                            <Route path="/dashboard">
+                                <Dashboard />
+                            </Route>
+                        </Switch>
+                    </NavSignedIn>
                 </Switch>
             </div>
         </Router>
