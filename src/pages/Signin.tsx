@@ -1,29 +1,26 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { FormEvent, ReactElement, useState } from 'react'
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { Redirect } from 'react-router-dom'
 
+import { useDispatch } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
 import styles from './Signin.styles'
-
-import { handleLogin } from '../requests/auth'
-
-const onLoginSubmit = (
-    event: FormEvent,
-    username: string,
-    password: string
-): void => {
-    event.preventDefault()
-    handleLogin(username, password).then((data) => {
-        localStorage.setItem('accessToken', data.access_token)
-        window.location.reload()
-    })
-}
+import { authActions } from '../state/actions'
 
 const Signin: React.FC<{ isAuthenticated: boolean }> = ({
     isAuthenticated,
 }): ReactElement => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+
+    const dispatch = useDispatch()
+    const { login } = bindActionCreators(authActions, dispatch)
+
+    const onLoginSubmit = (event: FormEvent): void => {
+        event.preventDefault()
+        login(username, password)
+    }
 
     if (isAuthenticated) {
         return <Redirect to="/dashboard" />
@@ -45,9 +42,7 @@ const Signin: React.FC<{ isAuthenticated: boolean }> = ({
                 <form
                     className={styles.signInForm}
                     method="POST"
-                    onSubmit={(event) =>
-                        onLoginSubmit(event, username, password)
-                    }
+                    onSubmit={onLoginSubmit}
                 >
                     <div className={styles.inputsContainer}>
                         <div>

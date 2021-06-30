@@ -2,3 +2,4 @@
 *.svg
 craco.config.js
 tailwind.config.js
+src/tests/

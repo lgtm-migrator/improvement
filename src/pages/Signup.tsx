@@ -1,27 +1,26 @@
 import React, { useState, FormEvent, ReactElement } from 'react'
 import { Redirect } from 'react-router-dom'
 
+import { useDispatch } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
 import styles from './Signup.styles'
 
-import { handleRegister } from '../requests/auth'
-
-const onRegisterSubmit = (
-    event: FormEvent,
-    username: string,
-    password: string
-): void => {
-    event.preventDefault()
-    handleRegister(username, password).then((data) => {
-        localStorage.setItem('accessToken', data.access_token)
-        window.location.reload()
-    })
-}
+import { authActions } from '../state/actions'
 
 const Signup: React.FC<{ isAuthenticated: boolean }> = ({
     isAuthenticated,
 }): ReactElement => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+
+    const dispatch = useDispatch()
+    const { register } = bindActionCreators(authActions, dispatch)
+
+    const onRegisterSubmit = (event: FormEvent): void => {
+        event.preventDefault()
+        register(username, password)
+    }
 
     if (isAuthenticated) {
         return <Redirect to="/dashboard" />
@@ -43,9 +42,7 @@ const Signup: React.FC<{ isAuthenticated: boolean }> = ({
                     <form
                         className={styles.signUpForm}
                         method="POST"
-                        onSubmit={(event) =>
-                            onRegisterSubmit(event, username, password)
-                        }
+                        onSubmit={onRegisterSubmit}
                     >
                         <div>
                             <div>

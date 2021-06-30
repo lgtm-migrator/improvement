@@ -1,11 +1,6 @@
-/* eslint-disable camelcase */
 import axios from 'axios'
 
-type AuthResponse = {
-    access_token: string
-    token_type: string
-    detail?: string
-}
+import { AuthResponse } from '../types/auth'
 
 const authConfig = {
     headers: {
