@@ -7,8 +7,10 @@ import {
 } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { History } from 'history'
+import { ConnectedRouter } from 'connected-react-router'
 
-import { State } from './types/state'
+import { State } from './state/reducers'
 import { authActions } from './state/actions'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
@@ -61,7 +63,11 @@ const AppContainer: React.FC = (): ReactElement => {
     )
 }
 
-const App: React.FC = (): ReactElement => {
+interface AppProps {
+    history: History
+}
+
+const App: React.FC<AppProps> = ({ history }): ReactElement => {
     return (
         <Suspense
             fallback={
@@ -70,7 +76,9 @@ const App: React.FC = (): ReactElement => {
                 </div>
             }
         >
-            <AppContainer />
+            <ConnectedRouter history={history}>
+                <AppContainer />
+            </ConnectedRouter>
         </Suspense>
     )
 }

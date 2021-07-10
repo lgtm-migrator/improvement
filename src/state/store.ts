@@ -1,14 +1,21 @@
+import { createBrowserHistory } from 'history'
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
-import rootReducer from './reducers/index'
+import { routerMiddleware } from 'connected-react-router'
+
+import createRootReducer from './reducers/index'
 
 const initialState = {}
 
-const middleware = [thunk]
+export const history = createBrowserHistory()
+
+const routerHistoryMiddleware = routerMiddleware(history)
+
+const middleware = [thunk, routerHistoryMiddleware]
 
 const store = createStore(
-    rootReducer,
+    createRootReducer(history),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     initialState as any,
     composeWithDevTools(applyMiddleware(...middleware))
