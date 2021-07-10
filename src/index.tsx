@@ -5,12 +5,12 @@ import { Provider } from 'react-redux'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
-import store from './state/store'
+import store, { history } from './state/store'
 
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <App />
+            <App history={history} />
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')
