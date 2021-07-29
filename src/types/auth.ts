@@ -9,8 +9,8 @@ export type AuthState = {
 
 export type AuthResponse = {
     /* eslint-disable */
-    access_token: string
-    token_type: string
+    accessToken: string
+    tokenType: string
     /* eslint-enable */
     detail?: string
 }

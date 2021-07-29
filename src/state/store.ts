@@ -1,24 +1,25 @@
 import { createBrowserHistory } from 'history'
-import { createStore, applyMiddleware } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import thunk from 'redux-thunk'
-import { routerMiddleware } from 'connected-react-router'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { connectRouter, routerMiddleware } from 'connected-react-router'
 
-import createRootReducer from './reducers/index'
-
-const initialState = {}
+import auth from './reducers/auth'
 
 export const history = createBrowserHistory()
 
 const routerHistoryMiddleware = routerMiddleware(history)
 
-const middleware = [thunk, routerHistoryMiddleware]
+const middleware = [routerHistoryMiddleware]
 
-const store = createStore(
-    createRootReducer(history),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    initialState as any,
-    composeWithDevTools(applyMiddleware(...middleware))
-)
+const rootReducer = combineReducers({
+    router: connectRouter(history),
+    auth,
+})
 
-export default store
+export const store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(middleware),
+})
+
+export type RootState = ReturnType<typeof rootReducer>
+export type AppDispatch = typeof store.dispatch

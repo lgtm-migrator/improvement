@@ -1,12 +1,12 @@
 import React, { useState, FormEvent, ReactElement } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import { useDispatch } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from '@reduxjs/toolkit'
 
 import styles from './Signup.styles'
 
 import { authActions } from '../state/actions'
+import { useAppDispatch } from '../state/hooks'
 
 const Signup: React.FC<{ isAuthenticated: boolean }> = ({
     isAuthenticated,
@@ -14,7 +14,7 @@ const Signup: React.FC<{ isAuthenticated: boolean }> = ({
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const { register } = bindActionCreators(authActions, dispatch)
 
     const onRegisterSubmit = (event: FormEvent): void => {

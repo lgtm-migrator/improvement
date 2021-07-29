@@ -5,23 +5,22 @@ import {
     Route,
     Redirect,
 } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from '@reduxjs/toolkit'
 import { History } from 'history'
 import { ConnectedRouter } from 'connected-react-router'
 
-import { State } from './state/reducers'
 import { authActions } from './state/actions'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Dashboard from './pages/Dashboard'
 import NavSignedOut from './components/NavSignedOut'
 import NavSignedIn from './components/NavSignedIn'
+import { useAppDispatch, useAppSelector } from './state/hooks'
 
 const AppContainer: React.FC = (): ReactElement => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const { loadUser } = bindActionCreators(authActions, dispatch)
-    const authState = useSelector((state: State) => state.auth)
+    const authState = useAppSelector((state) => state.auth)
 
     useEffect(() => {
         loadUser()

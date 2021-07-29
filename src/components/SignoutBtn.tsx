@@ -1,17 +1,17 @@
 import React, { ReactElement } from 'react'
 import { Menu } from '@headlessui/react'
 
-import { useDispatch } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from '@reduxjs/toolkit'
 
 import { authActions } from '../state/actions'
+import { useAppDispatch } from '../state/hooks'
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
 const SignoutBtn = (): ReactElement => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const { logout } = bindActionCreators(authActions, dispatch)
 
     return (

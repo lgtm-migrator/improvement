@@ -1,4 +1,4 @@
-import { Dispatch } from 'redux'
+import { Dispatch } from '@reduxjs/toolkit'
 
 import { AuthActionType, AuthAction } from '../../types/auth'
 import { getCurrentUser } from '../../requests/user'
@@ -40,7 +40,7 @@ export const login =
             .then((data) => {
                 dispatch({
                     type: AuthActionType.LOGIN_SUCCESS,
-                    payload: { accessToken: data.access_token },
+                    payload: { accessToken: data.accessToken },
                 })
             })
             .then(() => window.location.reload())
@@ -59,7 +59,7 @@ export const register =
             .then((data) => {
                 dispatch({
                     type: AuthActionType.REGISTER_SUCCESS,
-                    payload: { accessToken: data.access_token },
+                    payload: { accessToken: data.accessToken },
                 })
             })
             .then(() => window.location.reload())
