@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom'
 import { bindActionCreators } from '@reduxjs/toolkit'
 
 import styles from './Signin.styles'
-import { authActions } from '../state/actions'
+import { login } from '../state/slices/auth'
 import { useAppDispatch } from '../state/hooks'
 
 const Signin: React.FC<{ isAuthenticated: boolean }> = ({
@@ -15,11 +15,11 @@ const Signin: React.FC<{ isAuthenticated: boolean }> = ({
     const [password, setPassword] = useState('')
 
     const dispatch = useAppDispatch()
-    const { login } = bindActionCreators(authActions, dispatch)
+    const handleLogin = bindActionCreators(login, dispatch)
 
     const onLoginSubmit = (event: FormEvent): void => {
         event.preventDefault()
-        login(username, password)
+        handleLogin({ username, password })
     }
 
     if (isAuthenticated) {

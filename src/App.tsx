@@ -9,7 +9,7 @@ import { bindActionCreators } from '@reduxjs/toolkit'
 import { History } from 'history'
 import { ConnectedRouter } from 'connected-react-router'
 
-import { authActions } from './state/actions'
+import { loadUser as loadUserThunk } from './state/slices/auth'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Dashboard from './pages/Dashboard'
@@ -19,7 +19,7 @@ import { useAppDispatch, useAppSelector } from './state/hooks'
 
 const AppContainer: React.FC = (): ReactElement => {
     const dispatch = useAppDispatch()
-    const { loadUser } = bindActionCreators(authActions, dispatch)
+    const loadUser = bindActionCreators(loadUserThunk, dispatch)
     const authState = useAppSelector((state) => state.auth)
 
     useEffect(() => {

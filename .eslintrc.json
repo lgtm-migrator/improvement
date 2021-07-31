@@ -52,6 +52,10 @@
         ],
         "no-use-before-define": "off",
         "no-shadow": "off",
+        "no-param-reassign": [
+            "error",
+            { "props": true, "ignorePropertyModificationsFor": ["state"] }
+        ],
         "max-len": ["warn", { "code": 120 }],
         "import/prefer-default-export": "off",
         "import/no-extraneous-dependencies": [

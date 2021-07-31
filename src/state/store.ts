@@ -2,7 +2,7 @@ import { createBrowserHistory } from 'history'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { connectRouter, routerMiddleware } from 'connected-react-router'
 
-import auth from './reducers/auth'
+import auth from './slices/auth'
 
 export const history = createBrowserHistory()
 

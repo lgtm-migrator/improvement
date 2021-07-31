@@ -5,7 +5,7 @@ import { bindActionCreators } from '@reduxjs/toolkit'
 
 import styles from './Signup.styles'
 
-import { authActions } from '../state/actions'
+import { register } from '../state/slices/auth'
 import { useAppDispatch } from '../state/hooks'
 
 const Signup: React.FC<{ isAuthenticated: boolean }> = ({
@@ -15,11 +15,11 @@ const Signup: React.FC<{ isAuthenticated: boolean }> = ({
     const [password, setPassword] = useState('')
 
     const dispatch = useAppDispatch()
-    const { register } = bindActionCreators(authActions, dispatch)
+    const handleRegister = bindActionCreators(register, dispatch)
 
     const onRegisterSubmit = (event: FormEvent): void => {
         event.preventDefault()
-        register(username, password)
+        handleRegister({ username, password })
     }
 
     if (isAuthenticated) {

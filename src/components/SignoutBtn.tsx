@@ -3,7 +3,7 @@ import { Menu } from '@headlessui/react'
 
 import { bindActionCreators } from '@reduxjs/toolkit'
 
-import { authActions } from '../state/actions'
+import { logout } from '../state/slices/auth'
 import { useAppDispatch } from '../state/hooks'
 
 function classNames(...classes: string[]) {
@@ -12,14 +12,14 @@ function classNames(...classes: string[]) {
 
 const SignoutBtn = (): ReactElement => {
     const dispatch = useAppDispatch()
-    const { logout } = bindActionCreators(authActions, dispatch)
+    const handleLogout = bindActionCreators(logout, dispatch)
 
     return (
         <Menu.Item>
             {({ active }) => (
                 <button
                     type="button"
-                    onClick={logout}
+                    onClick={() => handleLogout()}
                     className={classNames(
                         active ? 'bg-gray-100' : '',
                         'flex py-2 px-4 text-sm text-gray-700 w-full'
