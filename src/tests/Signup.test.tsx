@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { Provider } from 'react-redux'
 
-import store from '../state/store'
+import { store } from '../state/store'
 import Signup from '../pages/Signup'
 
 it('should render sign up page', () => {

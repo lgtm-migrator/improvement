@@ -2,11 +2,11 @@ import React, { FormEvent, ReactElement, useState } from 'react'
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { Redirect } from 'react-router-dom'
 
-import { useDispatch } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from '@reduxjs/toolkit'
 
 import styles from './Signin.styles'
-import { authActions } from '../state/actions'
+import { login } from '../state/slices/auth'
+import { useAppDispatch } from '../state/hooks'
 
 const Signin: React.FC<{ isAuthenticated: boolean }> = ({
     isAuthenticated,
@@ -14,12 +14,12 @@ const Signin: React.FC<{ isAuthenticated: boolean }> = ({
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const dispatch = useDispatch()
-    const { login } = bindActionCreators(authActions, dispatch)
+    const dispatch = useAppDispatch()
+    const handleLogin = bindActionCreators(login, dispatch)
 
     const onLoginSubmit = (event: FormEvent): void => {
         event.preventDefault()
-        login(username, password)
+        handleLogin({ username, password })
     }
 
     if (isAuthenticated) {

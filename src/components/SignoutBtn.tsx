@@ -1,25 +1,25 @@
 import React, { ReactElement } from 'react'
 import { Menu } from '@headlessui/react'
 
-import { useDispatch } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from '@reduxjs/toolkit'
 
-import { authActions } from '../state/actions'
+import { logout } from '../state/slices/auth'
+import { useAppDispatch } from '../state/hooks'
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
 const SignoutBtn = (): ReactElement => {
-    const dispatch = useDispatch()
-    const { logout } = bindActionCreators(authActions, dispatch)
+    const dispatch = useAppDispatch()
+    const handleLogout = bindActionCreators(logout, dispatch)
 
     return (
         <Menu.Item>
             {({ active }) => (
                 <button
                     type="button"
-                    onClick={logout}
+                    onClick={() => handleLogout()}
                     className={classNames(
                         active ? 'bg-gray-100' : '',
                         'flex py-2 px-4 text-sm text-gray-700 w-full'
