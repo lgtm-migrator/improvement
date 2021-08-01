@@ -1,4 +1,6 @@
 /* eslint-disable camelcase */
+import { UserDbBase } from '../client/generatedApiClient'
+
 export type User = {
     user_uuid: string
     username: string
@@ -11,10 +13,10 @@ export type User = {
 
 export type UserState = {
     isAuthenticated: boolean
-    user: User
+    user: UserDbBase
 }
 
 export type ProfileMenuItemsType = {
-    user: User
+    user: UserDbBase
     userNavigation: { name: string; href: string }[]
 }

@@ -1,25 +1,28 @@
 import React, { useState, FormEvent, ReactElement } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import { bindActionCreators } from '@reduxjs/toolkit'
-
 import styles from './Signup.styles'
-
-import { register } from '../state/slices/auth'
-import { useAppDispatch } from '../state/hooks'
+import {
+    useRegisterMutation,
+    useCurrentUserQuery,
+} from '../client/generatedApiClient'
 
 const Signup: React.FC<{ isAuthenticated: boolean }> = ({
     isAuthenticated,
 }): ReactElement => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-
-    const dispatch = useAppDispatch()
-    const handleRegister = bindActionCreators(register, dispatch)
+    const [register] = useRegisterMutation()
+    const { refetch } = useCurrentUserQuery('')
 
     const onRegisterSubmit = (event: FormEvent): void => {
         event.preventDefault()
-        handleRegister({ username, password })
+        register({ bodyRegisterApiAuthRegisterPost: { username, password } })
+            .unwrap()
+            .then((data) => {
+                localStorage.setItem('accessToken', data.accessToken)
+                refetch()
+            })
     }
 
     if (isAuthenticated) {

@@ -1,18 +1,15 @@
 import React, { ReactElement } from 'react'
 import { Menu } from '@headlessui/react'
 
-import { bindActionCreators } from '@reduxjs/toolkit'
-
-import { logout } from '../state/slices/auth'
-import { useAppDispatch } from '../state/hooks'
-
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
 const SignoutBtn = (): ReactElement => {
-    const dispatch = useAppDispatch()
-    const handleLogout = bindActionCreators(logout, dispatch)
+    const handleLogout = () => {
+        localStorage.removeItem('accessToken')
+        window.location.reload()
+    }
 
     return (
         <Menu.Item>

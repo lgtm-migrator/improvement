@@ -2,24 +2,28 @@ import React, { FormEvent, ReactElement, useState } from 'react'
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { Redirect } from 'react-router-dom'
 
-import { bindActionCreators } from '@reduxjs/toolkit'
-
 import styles from './Signin.styles'
-import { login } from '../state/slices/auth'
-import { useAppDispatch } from '../state/hooks'
+import {
+    useAccessTokenMutation,
+    useCurrentUserQuery,
+} from '../client/generatedApiClient'
 
 const Signin: React.FC<{ isAuthenticated: boolean }> = ({
     isAuthenticated,
 }): ReactElement => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-
-    const dispatch = useAppDispatch()
-    const handleLogin = bindActionCreators(login, dispatch)
+    const [login] = useAccessTokenMutation()
+    const { refetch } = useCurrentUserQuery('')
 
     const onLoginSubmit = (event: FormEvent): void => {
         event.preventDefault()
-        handleLogin({ username, password })
+        login({ bodyAccessTokenApiAuthAccessTokenPost: { username, password } })
+            .unwrap()
+            .then((data) => {
+                localStorage.setItem('accessToken', data.accessToken)
+                refetch()
+            })
     }
 
     if (isAuthenticated) {
