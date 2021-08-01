@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import { BaseQueryFn } from '@reduxjs/toolkit/query/react'
 import axios, { AxiosRequestConfig, AxiosError } from 'axios'
 
 const headersConfigWithToken = () => {
     const accessToken = localStorage.getItem('accessToken')
+
     const config = {
         headers: {
             'Content-Type': 'application/json',
@@ -35,20 +35,29 @@ export const axiosBaseQuery: BaseQueryFn<
     {
         url: string
         method: AxiosRequestConfig['method']
-        data?: AxiosRequestConfig['data']
+        body?: AxiosRequestConfig['data']
     },
     unknown,
     unknown
-> = async ({ url, method, data }) => {
+> = async ({ url, method, body }) => {
     const baseUrl = `${process.env.REACT_APP_API_URL}`
     const headers = getHeadersConfig(url)
+    const isAuthUrl = authUrls.includes(url)
+    const authBody = isAuthUrl && new FormData()
+
+    if (authBody) {
+        authBody.append('username', body.username)
+        authBody.append('password', body.password)
+    }
+
     try {
         const result = await axios({
             url: baseUrl + url,
             method,
-            data,
-            headers,
+            ...headers,
+            data: authBody ?? body,
         })
+
         return { data: result.data }
     } catch (axiosError) {
         const err = axiosError as AxiosError

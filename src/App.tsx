@@ -1,35 +1,22 @@
-import React, { ReactElement, Suspense, useEffect } from 'react'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Redirect,
-} from 'react-router-dom'
-import { bindActionCreators } from '@reduxjs/toolkit'
+import React, { ReactElement, Suspense } from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { History } from 'history'
 import { ConnectedRouter } from 'connected-react-router'
 
-import { loadUser as loadUserThunk } from './state/slices/auth'
+import { useCurrentUserQuery } from './client/generatedApiClient'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Dashboard from './pages/Dashboard'
 import NavSignedOut from './components/NavSignedOut'
 import NavSignedIn from './components/NavSignedIn'
-import { useAppDispatch, useAppSelector } from './state/hooks'
 
 const AppContainer: React.FC = (): ReactElement => {
-    const dispatch = useAppDispatch()
-    const loadUser = bindActionCreators(loadUserThunk, dispatch)
-    const authState = useAppSelector((state) => state.auth)
-
-    useEffect(() => {
-        loadUser()
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    const { data: user } = useCurrentUserQuery('')
 
     return (
         <Router>
             <div>
-                {!authState.isAuthenticated && <NavSignedOut />}
+                {!user && <NavSignedOut />}
 
                 <Switch>
                     <Route exact path="/">
@@ -38,17 +25,14 @@ const AppContainer: React.FC = (): ReactElement => {
                         </div>
                     </Route>
                     <Route exact path="/signup">
-                        <Signup isAuthenticated={authState.isAuthenticated} />
+                        <Signup isAuthenticated={!!user} />
                     </Route>
                     <Route exact path="/signin">
-                        <Signin isAuthenticated={authState.isAuthenticated} />
+                        <Signin isAuthenticated={!!user} />
                     </Route>
                     {/* Signed in routes */}
-                    {authState.isAuthenticated && authState.user && (
-                        <NavSignedIn user={authState.user}>
-                            {!authState.isAuthenticated && (
-                                <Redirect to="/signin" />
-                            )}
+                    {user && (
+                        <NavSignedIn user={user}>
                             <Switch>
                                 <Route path="/dashboard">
                                     <Dashboard />
