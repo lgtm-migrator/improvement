@@ -60,7 +60,9 @@
         "eject": "react-scripts eject",
         "prepare": "husky install",
         "test:noWatch": "npm run test -- --watchAll=false",
-        "lint": "eslint --fix"
+        "lint": "eslint --fix",
+        "generate-api-schema": "npx openapi-typescript http://localhost:8000/openapi.json --output src/types/generated-schema.ts",
+        "generate-api-client": "npx @rtk-incubator/rtk-query-codegen-openapi --hooks http://localhost:8000/openapi.json --baseQuery ./src/client/baseQuery.ts:axiosBaseQuery --file src/client/generatedApiClient.ts"
     },
     "browserslist": {
         "production": [
