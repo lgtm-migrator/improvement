@@ -34,7 +34,7 @@ const getHeadersConfig = (url: string) => {
 export const axiosBaseQuery: BaseQueryFn<
     {
         url: string
-        method: AxiosRequestConfig['method']
+        method?: AxiosRequestConfig['method']
         body?: AxiosRequestConfig['data']
     },
     unknown,

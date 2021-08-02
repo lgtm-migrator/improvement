@@ -3,16 +3,16 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { connectRouter, routerMiddleware } from 'connected-react-router'
 
 import { setupListeners } from '@reduxjs/toolkit/query/react'
-import { api as generatedApi } from '../client/generatedApiClient'
+import { api } from 'client/improvementApiClient'
 
 export const history = createBrowserHistory()
 
 const routerHistoryMiddleware = routerMiddleware(history)
 
-const middleware = [routerHistoryMiddleware, generatedApi.middleware]
+const middleware = [routerHistoryMiddleware, api.middleware]
 
 const rootReducer = combineReducers({
-    [generatedApi.reducerPath]: generatedApi.reducer,
+    [api.reducerPath]: api.reducer,
     router: connectRouter(history),
 })
 

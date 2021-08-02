@@ -1,11 +1,11 @@
 import React, { useState, FormEvent, ReactElement } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import styles from './Signup.styles'
 import {
     useRegisterMutation,
     useCurrentUserQuery,
-} from '../client/generatedApiClient'
+} from 'client/improvementApiClient'
+import styles from './Signup.styles'
 
 const Signup: React.FC<{ isAuthenticated: boolean }> = ({
     isAuthenticated,

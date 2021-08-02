@@ -2,11 +2,11 @@ import React, { FormEvent, ReactElement, useState } from 'react'
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { Redirect } from 'react-router-dom'
 
-import styles from './Signin.styles'
 import {
     useAccessTokenMutation,
     useCurrentUserQuery,
-} from '../client/generatedApiClient'
+} from 'client/improvementApiClient'
+import styles from './Signin.styles'
 
 const Signin: React.FC<{ isAuthenticated: boolean }> = ({
     isAuthenticated,
