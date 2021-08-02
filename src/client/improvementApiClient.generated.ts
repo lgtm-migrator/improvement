@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { axiosBaseQuery } from './baseQuery'
 
-export const api = createApi({
+export const generatedApi = createApi({
     baseQuery: axiosBaseQuery,
     tagTypes: [],
     endpoints: (build) => ({
@@ -22,7 +23,7 @@ export const api = createApi({
             }),
         }),
         currentUser: build.query<CurrentUserApiResponse, CurrentUserApiArg>({
-            query: () => ({ url: `/api/user/me`, method: 'GET' }),
+            query: () => ({ url: `/api/user/me` }),
         }),
     }),
 })
@@ -77,4 +78,4 @@ export const {
     useRegisterMutation,
     useAccessTokenMutation,
     useCurrentUserQuery,
-} = api
+} = generatedApi

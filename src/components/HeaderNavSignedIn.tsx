@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { MenuAlt2Icon } from '@heroicons/react/outline'
 import { SearchIcon } from '@heroicons/react/solid'
 
-import { UserDbBase } from '../client/generatedApiClient'
+import { UserDbBase } from 'client/improvementApiClient.generated'
 import styles from './HeaderNavSignedIn.styles'
 import ProfileDropdown from './ProfileDropdown'
 

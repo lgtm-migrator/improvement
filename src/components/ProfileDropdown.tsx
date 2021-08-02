@@ -1,8 +1,8 @@
 import React, { Fragment, ReactElement } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 
+import { ProfileMenuItemsType } from 'types/user'
 import styles from './ProfileDropdown.styles'
-import { ProfileMenuItemsType } from '../types/user'
 import SignoutBtn from './SignoutBtn'
 
 function classNames(...classes: string[]) {

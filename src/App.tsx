@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { History } from 'history'
 import { ConnectedRouter } from 'connected-react-router'
 
-import { useCurrentUserQuery } from './client/generatedApiClient'
+import { useCurrentUserQuery } from 'client/improvementApiClient'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Dashboard from './pages/Dashboard'

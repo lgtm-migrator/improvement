@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { UserDbBase } from '../client/generatedApiClient'
+import { UserDbBase } from 'client/improvementApiClient.generated'
 import HeaderNavSignedIn from './HeaderNavSignedIn'
 import SidebarNav from './SidebarNav'
 import MobileMenu from './MobileMenu'
