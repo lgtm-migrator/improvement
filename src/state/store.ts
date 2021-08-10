@@ -1,8 +1,8 @@
 import { createBrowserHistory } from 'history'
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { connectRouter, routerMiddleware } from 'connected-react-router'
-
 import { setupListeners } from '@reduxjs/toolkit/query/react'
+
 import { api } from 'client/improvementApiClient'
 
 export const history = createBrowserHistory()

@@ -2,10 +2,7 @@ import React, { FormEvent, ReactElement, useState } from 'react'
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { Redirect } from 'react-router-dom'
 
-import {
-    useAccessTokenMutation,
-    useCurrentUserQuery,
-} from 'client/improvementApiClient'
+import { useAccessTokenMutation } from 'client/improvementApiClient'
 import styles from './Signin.styles'
 
 const Signin: React.FC<{ isAuthenticated: boolean }> = ({
@@ -14,16 +11,10 @@ const Signin: React.FC<{ isAuthenticated: boolean }> = ({
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [login] = useAccessTokenMutation()
-    const { refetch } = useCurrentUserQuery('')
 
     const onLoginSubmit = (event: FormEvent): void => {
         event.preventDefault()
         login({ bodyAccessTokenApiAuthAccessTokenPost: { username, password } })
-            .unwrap()
-            .then((data) => {
-                localStorage.setItem('accessToken', data.accessToken)
-                refetch()
-            })
     }
 
     if (isAuthenticated) {

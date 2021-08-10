@@ -1,14 +1,25 @@
 import { BaseQueryFn } from '@reduxjs/toolkit/query/react'
 import axios, { AxiosRequestConfig, AxiosError } from 'axios'
 
-const headersConfigWithToken = () => {
-    const accessToken = localStorage.getItem('accessToken')
+const baseUrl = `${process.env.REACT_APP_API_URL}`
 
+const headersBaseConfig = (accessToken: string | null) => {
     const config = {
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`,
         },
+    }
+
+    if (accessToken) {
+        const accessConfig = {
+            ...config,
+            headers: {
+                ...config.headers,
+                Authorization: `Bearer ${accessToken}`,
+            },
+        }
+
+        return accessConfig
     }
 
     return config
@@ -16,8 +27,8 @@ const headersConfigWithToken = () => {
 
 const authUrls = ['/api/auth/register', '/api/auth/access-token']
 
-const getHeadersConfig = (url: string) => {
-    if (authUrls.includes(url)) {
+const getHeadersConfig = (isAuthUrl: boolean, accessToken: string | null) => {
+    if (isAuthUrl) {
         const authConfig = {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -26,7 +37,7 @@ const getHeadersConfig = (url: string) => {
 
         return authConfig
     }
-    const baseConfig = headersConfigWithToken()
+    const baseConfig = headersBaseConfig(accessToken)
 
     return baseConfig
 }
@@ -40,9 +51,10 @@ export const axiosBaseQuery: BaseQueryFn<
     unknown,
     unknown
 > = async ({ url, method, body }) => {
-    const baseUrl = `${process.env.REACT_APP_API_URL}`
-    const headers = getHeadersConfig(url)
+    const accessToken = localStorage.getItem('accessToken')
+
     const isAuthUrl = authUrls.includes(url)
+    const headers = getHeadersConfig(isAuthUrl, accessToken)
     const authBody = isAuthUrl && new FormData()
 
     if (authBody) {
