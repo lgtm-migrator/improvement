@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
-import { UserDbBase } from 'client/improvementApiClient.generated'
+import { User } from 'client/improvementApiClient.generated'
 
 export type ProfileMenuItemsType = {
-    user: UserDbBase
+    user: User
     userNavigation: { name: string; href: string }[]
 }

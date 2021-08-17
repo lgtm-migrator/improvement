@@ -1,19 +1,16 @@
-import React, { ReactElement } from 'react'
+import { User } from 'client/improvementApiClient.generated'
+import Boards from 'components/Boards'
+import React from 'react'
 
-const Dashboard = (): ReactElement => {
+const Dashboard: React.FC<{ user: User }> = ({ user }) => {
     return (
         <div className="flex-1 flex items-stretch overflow-hidden">
-            <main className="flex-1 overflow-y-auto">
+            <main title="dashboard" className="flex-1 overflow-y-auto">
                 <section
                     aria-labelledby="primary-heading"
                     className="min-w-0 flex-1 h-full flex flex-col overflow-hidden lg:order-last"
                 >
-                    <h1
-                        id="primary-heading"
-                        className="grid place-items-center h-screen"
-                    >
-                        Dashboard
-                    </h1>
+                    <Boards userUuid={user.userUuid} />
                 </section>
             </main>
         </div>

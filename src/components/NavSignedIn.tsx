@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
-import { UserDbBase } from 'client/improvementApiClient.generated'
+import { User } from 'client/improvementApiClient.generated'
 import HeaderNavSignedIn from './HeaderNavSignedIn'
 import SidebarNav from './SidebarNav'
 import MobileMenu from './MobileMenu'
 
-const NavSignedIn: React.FC<{ user: UserDbBase }> = ({ user, children }) => {
+const NavSignedIn: React.FC<{ user: User }> = ({ user, children }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (

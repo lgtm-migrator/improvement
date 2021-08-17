@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { CogIcon, HomeIcon } from '@heroicons/react/outline'
 
 const sidebarNavigation = [
-    { name: 'Home', href: '#', icon: HomeIcon, current: false },
+    { name: 'Dashboard', href: '#', icon: HomeIcon, current: false },
     { name: 'Settings', href: '#', icon: CogIcon, current: false },
 ]
 

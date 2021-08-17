@@ -1,6 +1,6 @@
 import { createRandomUser } from '../support/helpers'
 
-describe('index page', () => {
+describe('sign up and sign in', () => {
     beforeEach(() => {
         cy.visit('/')
     })
