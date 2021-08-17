@@ -67,7 +67,7 @@ export const axiosBaseQuery: BaseQueryFn<
             url: baseUrl + url,
             method,
             ...headers,
-            data: authBody ?? body,
+            data: !authBody ? body : authBody,
         })
 
         return { data: result.data }
