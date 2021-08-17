@@ -2,14 +2,14 @@ import React, { ReactElement } from 'react'
 import { MenuAlt2Icon } from '@heroicons/react/outline'
 import { SearchIcon } from '@heroicons/react/solid'
 
-import { UserDbBase } from 'client/improvementApiClient.generated'
+import { User } from 'client/improvementApiClient.generated'
 import styles from './HeaderNavSignedIn.styles'
 import ProfileDropdown from './ProfileDropdown'
 
 const userNavigation = [{ name: 'Your Profile', href: '#' }]
 
 const HeaderNavSignedIn: React.FC<{
-    user: UserDbBase
+    user: User
     setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
 }> = ({ user, setMobileMenuOpen }): ReactElement => {
     return (

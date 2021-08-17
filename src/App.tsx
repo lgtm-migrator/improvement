@@ -35,7 +35,7 @@ const AppContainer: React.FC = (): ReactElement => {
                         <NavSignedIn user={user}>
                             <Switch>
                                 <Route path="/dashboard">
-                                    <Dashboard />
+                                    <Dashboard user={user} />
                                 </Route>
                             </Switch>
                         </NavSignedIn>
