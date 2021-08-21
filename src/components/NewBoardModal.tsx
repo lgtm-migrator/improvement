@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
-import { bindActionCreators } from '@reduxjs/toolkit'
 import { Dialog } from '@headlessui/react'
 
 import Modal from 'components/overlays/Modal'
 import Button from 'components/elements/Button'
 import Input from 'components/forms/Input'
-import { modalActions } from 'state/slices/modalSlice'
+import { closeModal } from 'state/slices/modalSlice'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
 import { useCreateNewBoardMutation } from 'client/improvementApiClient'
-import { formActions } from 'state/slices/formSlice'
+import { setNewBoardForm, resetNewBoardForm } from 'state/slices/formSlice'
 import styles from './NewBoardModal.styles'
 
 const NewBoardModal: React.FC<{ userUuid: string }> = ({ userUuid }) => {
@@ -16,52 +15,7 @@ const NewBoardModal: React.FC<{ userUuid: string }> = ({ userUuid }) => {
     const [error, setError] = useState(false)
 
     const dispatch = useAppDispatch()
-    const { closeModal } = bindActionCreators(modalActions, dispatch)
-    const { setNewBoardForm, resetNewBoardForm } = bindActionCreators(
-        formActions,
-        dispatch
-    )
     const [createBoard] = useCreateNewBoardMutation()
-
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (!e.target.value) {
-            setError(true)
-        } else {
-            setError(false)
-        }
-
-        setNewBoardForm({
-            boardName: e.target.value,
-            ownerUuid: userUuid,
-        })
-    }
-
-    const handleModalClose = () => {
-        resetNewBoardForm()
-        closeModal()
-    }
-
-    const handleCreateBoard = () => {
-        createBoard({
-            boardCreate: {
-                boardName,
-                ownerUuid: userUuid,
-            },
-        })
-        resetNewBoardForm()
-        closeModal()
-    }
-
-    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-        const relatedTargetId =
-            !!e.relatedTarget && (e.relatedTarget as Element).id
-        const notCancelling =
-            !!relatedTargetId && relatedTargetId !== 'cancel-create-board'
-
-        if (!boardName && notCancelling) {
-            setError(true)
-        }
-    }
 
     return (
         <Modal handleModalClose={handleModalClose}>
@@ -106,6 +60,48 @@ const NewBoardModal: React.FC<{ userUuid: string }> = ({ userUuid }) => {
             </div>
         </Modal>
     )
+
+    function handleModalClose() {
+        dispatch(resetNewBoardForm())
+        dispatch(closeModal())
+    }
+
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+        if (!e.target.value) {
+            setError(true)
+        } else {
+            setError(false)
+        }
+
+        dispatch(
+            setNewBoardForm({
+                boardName: e.target.value,
+                ownerUuid: userUuid,
+            })
+        )
+    }
+
+    function handleCreateBoard() {
+        createBoard({
+            boardCreate: {
+                boardName,
+                ownerUuid: userUuid,
+            },
+        })
+        dispatch(resetNewBoardForm())
+        dispatch(closeModal())
+    }
+
+    function handleBlur(e: React.FocusEvent<HTMLInputElement>) {
+        const relatedTargetId =
+            !!e.relatedTarget && (e.relatedTarget as Element).id
+        const notCancelling =
+            !!relatedTargetId && relatedTargetId !== 'cancel-create-board'
+
+        if (!boardName && notCancelling) {
+            setError(true)
+        }
+    }
 }
 
 export default NewBoardModal

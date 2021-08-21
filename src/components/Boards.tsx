@@ -1,5 +1,4 @@
 import React from 'react'
-import { bindActionCreators } from '@reduxjs/toolkit'
 import { ChevronRightIcon, XCircleIcon } from '@heroicons/react/solid'
 
 import {
@@ -8,14 +7,13 @@ import {
 } from 'client/improvementApiClient'
 import Button from 'components/elements/Button'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
-import { modalActions } from 'state/slices/modalSlice'
+import { openModal } from 'state/slices/modalSlice'
 import NewBoardModal from './NewBoardModal'
 
 const Boards: React.FC<{ userUuid: string }> = ({ userUuid }) => {
     const { data: boards } = useListUserBoardsQuery('')
     const modalOpenState = useAppSelector((state) => state.modal.open)
     const dispatch = useAppDispatch()
-    const { openModal } = bindActionCreators(modalActions, dispatch)
     const [deleteBoard] = useDeleteUserBoardMutation()
 
     return (
@@ -25,7 +23,7 @@ const Boards: React.FC<{ userUuid: string }> = ({ userUuid }) => {
                 <Button
                     size="m"
                     text="New Board"
-                    onClick={() => openModal('newBoard')}
+                    onClick={() => dispatch(openModal('newBoard'))}
                 />
             </div>
 
