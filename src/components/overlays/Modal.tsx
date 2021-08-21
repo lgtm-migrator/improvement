@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react'
-import { bindActionCreators } from '@reduxjs/toolkit'
 import { Dialog, Transition } from '@headlessui/react'
 
-import { modalActions } from 'state/slices/modalSlice'
+import { closeModal } from 'state/slices/modalSlice'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
 
 type ModalProps = {
@@ -16,7 +15,6 @@ const Modal: React.FC<ModalProps> = ({
 }): React.ReactElement => {
     const openState = useAppSelector((state) => state.modal.open)
     const dispatch = useAppDispatch()
-    const { closeModal } = bindActionCreators(modalActions, dispatch)
 
     return (
         <Transition.Root show={openState} as={Fragment}>
@@ -25,7 +23,9 @@ const Modal: React.FC<ModalProps> = ({
                 auto-reopen="true"
                 className="fixed z-10 inset-0 overflow-y-auto"
                 onClose={() =>
-                    !handleModalClose ? closeModal() : handleModalClose()
+                    !handleModalClose
+                        ? dispatch(closeModal())
+                        : handleModalClose()
                 }
             >
                 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
