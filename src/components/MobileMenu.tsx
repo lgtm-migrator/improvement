@@ -1,13 +1,11 @@
 import React, { Fragment, ReactElement } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { CogIcon, HomeIcon, XIcon } from '@heroicons/react/outline'
+import { XIcon } from '@heroicons/react/outline'
+import { Link } from 'react-router-dom'
 
+import { sidebarNavigation } from 'constants/navigation'
+import { useAppSelector } from 'state/hooks'
 import styles from './MobileMenu.styles'
-
-const sidebarNavigation = [
-    { name: 'Home', href: '#', icon: HomeIcon, current: false },
-    { name: 'Settings', href: '#', icon: CogIcon, current: false },
-]
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -17,6 +15,8 @@ const MobileMenu: React.FC<{
     mobileMenuOpen: boolean
     setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
 }> = ({ mobileMenuOpen, setMobileMenuOpen }): ReactElement => {
+    const pathname = useAppSelector((state) => state.router.location.pathname)
+
     return (
         <Transition.Root show={mobileMenuOpen} as={Fragment}>
             <Dialog
@@ -83,34 +83,43 @@ const MobileMenu: React.FC<{
                             <div className="mt-5 flex-1 h-0 px-2 overflow-y-auto">
                                 <nav className="h-full flex flex-col">
                                     <div className="space-y-1">
-                                        {sidebarNavigation.map((item) => (
-                                            <a
-                                                key={item.name}
-                                                href={item.href}
-                                                className={classNames(
-                                                    item.current
-                                                        ? 'bg-indigo-800 text-white'
-                                                        : 'text-indigo-100 hover:bg-indigo-800 hover:text-white',
-                                                    'group py-2 px-3 rounded-md flex items-center text-sm font-medium'
-                                                )}
-                                                aria-current={
-                                                    item.current
-                                                        ? 'page'
-                                                        : undefined
-                                                }
-                                            >
-                                                <item.icon
+                                        {sidebarNavigation.map((item) => {
+                                            const current = pathname.includes(
+                                                item.to
+                                            )
+
+                                            return (
+                                                <Link
+                                                    key={item.name}
+                                                    to={item.to}
+                                                    onClick={() =>
+                                                        setMobileMenuOpen(false)
+                                                    }
                                                     className={classNames(
-                                                        item.current
-                                                            ? 'text-white'
-                                                            : 'text-indigo-300 group-hover:text-white',
-                                                        'mr-3 h-6 w-6'
+                                                        current
+                                                            ? 'bg-indigo-800 text-white'
+                                                            : 'text-indigo-100 hover:bg-indigo-800 hover:text-white',
+                                                        styles.mobileLink
                                                     )}
-                                                    aria-hidden="true"
-                                                />
-                                                <span>{item.name}</span>
-                                            </a>
-                                        ))}
+                                                    aria-current={
+                                                        current
+                                                            ? 'page'
+                                                            : undefined
+                                                    }
+                                                >
+                                                    <item.icon
+                                                        className={classNames(
+                                                            current
+                                                                ? 'text-white'
+                                                                : 'text-indigo-300 group-hover:text-white',
+                                                            'mr-3 h-6 w-6'
+                                                        )}
+                                                        aria-hidden="true"
+                                                    />
+                                                    <span>{item.name}</span>
+                                                </Link>
+                                            )
+                                        })}
                                     </div>
                                 </nav>
                             </div>
