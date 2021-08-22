@@ -6,6 +6,7 @@ import { ConnectedRouter } from 'connected-react-router'
 import { useCurrentUserQuery } from 'client/improvementApiClient'
 import Board from 'pages/Board'
 import PrivateRoute from 'components/PrivateRoute'
+import FourOhFour from 'pages/FourOhFour'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Dashboard from './pages/Dashboard'
@@ -19,6 +20,23 @@ const AppContainer: React.FC = (): ReactElement => {
         <div>
             {!user && <NavSignedOut />}
 
+            {/* Signed in routes */}
+            {user && (
+                <NavSignedIn user={user}>
+                    <Switch>
+                        <PrivateRoute user={user} path="/dashboard">
+                            <Dashboard user={user} />
+                        </PrivateRoute>
+                        <PrivateRoute user={user} path="/board/:boardUuid">
+                            <Board />
+                        </PrivateRoute>
+                        <Route path="*">
+                            <FourOhFour user={user} />
+                        </Route>
+                    </Switch>
+                </NavSignedIn>
+            )}
+
             <Switch>
                 <Route exact path="/">
                     <div className="grid place-items-center h-screen">
@@ -31,20 +49,10 @@ const AppContainer: React.FC = (): ReactElement => {
                 <Route exact path="/signin">
                     <Signin isAuthenticated={!!user} />
                 </Route>
+                <Route path="*">
+                    <FourOhFour />
+                </Route>
             </Switch>
-            {/* Signed in routes */}
-            {user && (
-                <NavSignedIn user={user}>
-                    <Switch>
-                        <PrivateRoute user={user} path="/dashboard">
-                            <Dashboard user={user} />
-                        </PrivateRoute>
-                        <PrivateRoute user={user} path="/board/:boardUuid">
-                            <Board />
-                        </PrivateRoute>
-                    </Switch>
-                </NavSignedIn>
-            )}
         </div>
     )
 }
