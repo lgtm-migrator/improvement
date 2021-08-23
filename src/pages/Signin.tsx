@@ -3,6 +3,7 @@ import { LockClosedIcon } from '@heroicons/react/solid'
 import { Redirect } from 'react-router-dom'
 
 import { useAccessTokenMutation } from 'client/improvementApiClient'
+import { useToastHandling } from 'hooks'
 import styles from './Signin.styles'
 
 const Signin: React.FC<{ isAuthenticated: boolean }> = ({
@@ -10,11 +11,17 @@ const Signin: React.FC<{ isAuthenticated: boolean }> = ({
 }): ReactElement => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [login] = useAccessTokenMutation()
+    const [login, { isSuccess, error: loginError }] = useAccessTokenMutation()
+    useToastHandling({
+        successMsg: `${isSuccess ? `Welcome ${username}!` : ''}`,
+        apiError: loginError,
+    })
 
     const onLoginSubmit = (event: FormEvent): void => {
         event.preventDefault()
-        login({ bodyAccessTokenApiAuthAccessTokenPost: { username, password } })
+        login({
+            bodyAccessTokenApiAuthAccessTokenPost: { username, password },
+        })
     }
 
     if (isAuthenticated) {

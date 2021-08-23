@@ -6,6 +6,7 @@ import { setupListeners } from '@reduxjs/toolkit/query/react'
 import { api } from 'client/improvementApiClient'
 import modalReducer from './slices/modalSlice'
 import formReducer from './slices/formSlice'
+import toastReducer from './slices/toastSlice'
 
 export const history = createBrowserHistory()
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     [api.reducerPath]: api.reducer,
     forms: formReducer,
     modal: modalReducer,
+    toast: toastReducer,
     router: connectRouter(history),
 })
 

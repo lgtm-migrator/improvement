@@ -42,6 +42,11 @@ const getHeadersConfig = (isAuthUrl: boolean, accessToken: string | null) => {
     return baseConfig
 }
 
+export type BaseQueryError = {
+    status: number | undefined
+    msg: string
+}
+
 export const axiosBaseQuery: BaseQueryFn<
     {
         url: string
@@ -72,12 +77,13 @@ export const axiosBaseQuery: BaseQueryFn<
 
         return { data: result.data }
     } catch (axiosError) {
-        const err = axiosError as AxiosError
-        return {
+        const err: AxiosError = axiosError
+        const errorObj = {
             error: {
                 status: err.response?.status,
-                data: err.response?.data,
+                msg: err.response?.data?.detail,
             },
         }
+        return errorObj
     }
 }
