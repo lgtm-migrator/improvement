@@ -42,6 +42,8 @@ type CustomBtnProps = {
     color: BtnColors
     text: string
     btnRef: React.MutableRefObject<null>
+    icon: React.ReactElement
+    iconSpot: 'before' | 'after'
 }
 
 type BtnProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
@@ -54,6 +56,8 @@ const Button: React.FC<BtnProps> = ({
     className = '',
     type = 'button',
     btnRef,
+    icon,
+    iconSpot = 'before',
     ...props
 }) => {
     const btnSize = size in BtnSizeEnum && BtnSizeEnum[size]
@@ -71,7 +75,9 @@ const Button: React.FC<BtnProps> = ({
             {...props} // eslint-disable-line react/jsx-props-no-spreading
             className={btnClasses}
         >
+            {icon && iconSpot === 'before' && icon}
             {text}
+            {icon && iconSpot === 'after' && icon}
         </button>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ChevronRightIcon, XCircleIcon } from '@heroicons/react/solid'
+import { ChevronRightIcon, PlusIcon, XCircleIcon } from '@heroicons/react/solid'
 
 import {
     useDeleteUserBoardMutation,
@@ -9,7 +9,8 @@ import {
 import Button from 'components/elements/Button'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
 import { openModal } from 'state/slices/modalSlice'
-import NewBoardModal from './NewBoardModal'
+import NewBoardModal from 'components/NewBoardModal'
+import NoBoards from 'components/NoBoards'
 
 const Boards: React.FC<{ userUuid: string }> = ({ userUuid }) => {
     const {
@@ -27,19 +28,27 @@ const Boards: React.FC<{ userUuid: string }> = ({ userUuid }) => {
     return (
         <div className="bg-white shadow overflow-hidden overflow-y-auto sm:rounded-md">
             {modalOpenState && <NewBoardModal userUuid={userUuid} />}
-            <div className="grid my-2 mr-3 place-items-end">
-                <Button
-                    size="m"
-                    text="New Board"
-                    onClick={() => dispatch(openModal('newBoard'))}
-                    disabled={loading}
-                />
-            </div>
+            {boards?.length !== 0 && (
+                <div className="grid my-2 mr-3 place-items-end">
+                    <Button
+                        size="m"
+                        text="New Board"
+                        onClick={() => dispatch(openModal('newBoard'))}
+                        disabled={loading}
+                        icon={
+                            <PlusIcon
+                                className="-ml-1 mr-2 h-5 w-5"
+                                aria-hidden="true"
+                            />
+                        }
+                    />
+                </div>
+            )}
 
             <ul className="divide-y divide-gray-200 space-y-3">
                 {boards?.length === 0 && (
                     <div className="grid place-items-center h-screen">
-                        No boards created
+                        <NoBoards />
                     </div>
                 )}
 

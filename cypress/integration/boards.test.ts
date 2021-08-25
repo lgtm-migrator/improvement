@@ -8,6 +8,7 @@ describe('boards', () => {
 
         cy.signup(testuser)
         cy.location('pathname').should('equal', '/dashboard')
+        cy.get('button[data-testid="dismiss-toast-btn"]').click()
     })
 
     it('should create a new board', () => {

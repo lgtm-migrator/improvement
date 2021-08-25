@@ -5,6 +5,7 @@ import {
     useRegisterMutation,
     useCurrentUserQuery,
 } from 'client/improvementApiClient'
+import { useToastHandling } from 'hooks'
 import styles from './Signup.styles'
 
 const Signup: React.FC<{ isAuthenticated: boolean }> = ({
@@ -12,8 +13,15 @@ const Signup: React.FC<{ isAuthenticated: boolean }> = ({
 }): ReactElement => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [register] = useRegisterMutation()
+    const [register, { isSuccess, error: registerError }] =
+        useRegisterMutation()
     const { refetch } = useCurrentUserQuery('')
+    useToastHandling({
+        successMsg: `${
+            isSuccess ? `Signed up successfully. Welcome ${username}!` : ''
+        }`,
+        apiError: registerError,
+    })
 
     const onRegisterSubmit = (event: FormEvent): void => {
         event.preventDefault()

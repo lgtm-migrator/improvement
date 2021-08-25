@@ -8,7 +8,7 @@ function classNames(...classes: string[]) {
 const SignoutBtn = (): ReactElement => {
     const handleLogout = () => {
         localStorage.removeItem('accessToken')
-        window.location.reload()
+        window.location.replace('/signin')
     }
 
     return (
