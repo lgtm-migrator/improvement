@@ -1,10 +1,7 @@
 import React, { useState, FormEvent, ReactElement } from 'react'
 import { Redirect } from 'react-router-dom'
 
-import {
-    useRegisterMutation,
-    useCurrentUserQuery,
-} from 'client/improvementApiClient'
+import { useRegisterMutation } from 'client/improvementApiClient'
 import { useToastHandling } from 'hooks'
 import styles from './Signup.styles'
 
@@ -15,7 +12,6 @@ const Signup: React.FC<{ isAuthenticated: boolean }> = ({
     const [password, setPassword] = useState('')
     const [register, { isSuccess, error: registerError }] =
         useRegisterMutation()
-    const { refetch } = useCurrentUserQuery('')
     useToastHandling({
         successMsg: `${
             isSuccess ? `Signed up successfully. Welcome ${username}!` : ''
@@ -29,7 +25,7 @@ const Signup: React.FC<{ isAuthenticated: boolean }> = ({
             .unwrap()
             .then((data) => {
                 localStorage.setItem('accessToken', data.accessToken)
-                refetch()
+                window.location.reload()
             })
     }
 

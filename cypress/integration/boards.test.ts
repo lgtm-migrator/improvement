@@ -8,7 +8,8 @@ describe('boards', () => {
 
         cy.signup(testuser)
         cy.location('pathname').should('equal', '/dashboard')
-        cy.get('button[data-testid="dismiss-toast-btn"]').click()
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000)
     })
 
     it('should create a new board', () => {

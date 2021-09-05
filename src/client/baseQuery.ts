@@ -77,7 +77,7 @@ export const axiosBaseQuery: BaseQueryFn<
 
         return { data: result.data }
     } catch (axiosError) {
-        const err: AxiosError = axiosError
+        const err = axiosError as AxiosError
         const errorObj = {
             error: {
                 status: err.response?.status,
