@@ -117,6 +117,7 @@ export const Toast: React.FC<ToastProps> = ({ type, msg }) => {
 
 const ToastContainer = (): React.ReactElement => (
     <BaseToastcontainer
+        icon={false}
         position="top-center"
         autoClose={3500}
         hideProgressBar={false}
