@@ -19,11 +19,13 @@ type BoardWSHookProps = {
     lastJsonMessage: BoardData
 }
 
+const boardWebsocketBaseUrl = `${process.env.REACT_APP_WEBSOCKET_URL}/api/board/ws`
+
 const Board: React.FC<BoardProps> = ({ boardName, boardUuid, pathId }) => {
     const [columnName, setColumnName] = useState('')
     const [columnNewPos, setColumnNewPos] = useState<number>(0)
     const { sendJsonMessage, lastJsonMessage: boardData }: BoardWSHookProps =
-        useWebSocket(`ws://localhost:8000/api/board/ws/${pathId}`)
+        useWebSocket(`${boardWebsocketBaseUrl}/${pathId}`)
 
     return (
         <div>
