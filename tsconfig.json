@@ -15,8 +15,21 @@
         "isolatedModules": true,
         "noEmit": true,
         "jsx": "react-jsx",
-        "baseUrl": "./src"
+        "baseUrl": "./",
+        "types": ["snowpack-env", "node", "jest", "@testing-library/jest-dom"],
+        "paths": {
+            "src/*": ["./src/*"],
+            "client/*": ["./src/client/*"],
+            "components/*": ["./src/components/*"],
+            "constants/*": ["./src/constants/*"],
+            "hooks/*": ["./src/hooks/*"],
+            "pages/*": ["./src/pages/*"],
+            "state/*": ["./src/state/*"],
+            "tests/*": ["./src/tests/*"],
+            "types/*": ["./src/types/*"],
+            "utils/*": ["./src/utils/*"],
+        }
     },
-    "include": ["**/*.ts", "**/*.tsx"],
+    "include": ["**/*.ts", "**/*.tsx", "rootTypes/*"],
     "exclude": ["node_modules", "src/tests"]
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Dialog } from '@headlessui/react'
 
 import Modal from 'components/overlays/Modal'
@@ -9,16 +9,32 @@ import { useAppDispatch, useAppSelector } from 'state/hooks'
 import { useCreateNewBoardMutation } from 'client/improvementApiClient'
 import { setNewBoardForm, resetNewBoardForm } from 'state/slices/formSlice'
 import styles from './NewBoardModal.styles'
+import { useLocation } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 
-const NewBoardModal: React.FC<{ userUuid: string }> = ({ userUuid }) => {
+type CancelBtnRef = React.MutableRefObject<HTMLButtonElement | null>
+
+const NewBoardModal: React.FC<{ open: boolean; userUuid: string }> = ({
+    open,
+    userUuid,
+}) => {
     const { boardName } = useAppSelector((state) => state.forms.newBoard)
+    const path = useLocation().pathname
+    const navigate = useNavigate()
+    const parentPath = path.substring(0, path.lastIndexOf('/modal'))
     const [error, setError] = useState(false)
+
+    const cancelButtonRef = useRef() as CancelBtnRef
 
     const dispatch = useAppDispatch()
     const [createBoard] = useCreateNewBoardMutation()
 
     return (
-        <Modal handleModalClose={handleModalClose}>
+        <Modal
+            open={open}
+            handleModalClose={handleModalClose}
+            initFocus={cancelButtonRef}
+        >
             <div className={styles.newBoardModalContent}>
                 <div>
                     <div className="mt-3 text-center sm:mt-5">
@@ -50,6 +66,7 @@ const NewBoardModal: React.FC<{ userUuid: string }> = ({ userUuid }) => {
                         disabled={!boardName}
                     />
                     <Button
+                        btnRef={cancelButtonRef}
                         id="cancel-create-board"
                         text="Cancel"
                         color="secondary"
@@ -64,6 +81,7 @@ const NewBoardModal: React.FC<{ userUuid: string }> = ({ userUuid }) => {
     function handleModalClose() {
         dispatch(resetNewBoardForm())
         dispatch(closeModal())
+        navigate(parentPath)
     }
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -88,8 +106,7 @@ const NewBoardModal: React.FC<{ userUuid: string }> = ({ userUuid }) => {
                 ownerUuid: userUuid,
             },
         })
-        dispatch(resetNewBoardForm())
-        dispatch(closeModal())
+        handleModalClose()
     }
 
     function handleBlur(e: React.FocusEvent<HTMLInputElement>) {

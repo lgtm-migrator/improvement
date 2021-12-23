@@ -1,7 +1,7 @@
 import { BaseQueryFn } from '@reduxjs/toolkit/query/react'
 import axios, { AxiosRequestConfig, AxiosError } from 'axios'
 
-const baseUrl = `${process.env.REACT_APP_API_URL}`
+const baseUrl = `${import.meta.env.SNOWPACK_PUBLIC_APP_API_URL}`
 
 const headersBaseConfig = (accessToken: string | null) => {
     const config = {

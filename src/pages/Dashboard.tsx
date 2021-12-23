@@ -1,8 +1,7 @@
-import { User } from 'client/improvementApiClient.generated'
 import Boards from 'components/Boards'
 import React from 'react'
 
-const Dashboard: React.FC<{ user: User }> = ({ user }) => {
+const Dashboard: React.FC = () => {
     return (
         <div className="flex-1 flex items-stretch overflow-hidden">
             <main title="dashboard" className="flex-1 overflow-y-auto">
@@ -10,7 +9,7 @@ const Dashboard: React.FC<{ user: User }> = ({ user }) => {
                     aria-labelledby="primary-heading"
                     className="min-w-0 flex-1 h-full flex flex-col overflow-hidden lg:order-last"
                 >
-                    <Boards userUuid={user.userUuid} />
+                    <Boards />
                 </section>
             </main>
         </div>

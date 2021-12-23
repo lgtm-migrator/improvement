@@ -1,10 +1,9 @@
 import React, { Fragment, ReactElement } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import { sidebarNavigation } from 'constants/navigation'
-import { useAppSelector } from 'state/hooks'
 import styles from './MobileMenu.styles'
 
 function classNames(...classes: string[]) {
@@ -15,7 +14,7 @@ const MobileMenu: React.FC<{
     mobileMenuOpen: boolean
     setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
 }> = ({ mobileMenuOpen, setMobileMenuOpen }): ReactElement => {
-    const pathname = useAppSelector((state) => state.router.location.pathname)
+    const pathname = useLocation().pathname
 
     return (
         <Transition.Root show={mobileMenuOpen} as={Fragment}>

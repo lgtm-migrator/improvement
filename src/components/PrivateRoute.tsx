@@ -1,30 +1,11 @@
 import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
-
+import { Navigate, Outlet } from 'react-router'
 import { User } from 'client/improvementApiClient.generated'
 
-type PrivateRouteProps = {
-    user: User
-    children: React.ReactNode
-    path: string
-    exact?: boolean
-}
+type Props = { user: User | undefined }
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({
-    user,
-    children,
-    path,
-    exact,
-}) => {
-    if (!user) {
-        return <Redirect to="/signin" />
-    }
-
-    return (
-        <Route path={path} exact={exact}>
-            {children}
-        </Route>
-    )
+const PrivateRoute = ({ user }: Props) => {
+    return user ? <Outlet /> : <Navigate to="/signin" />
 }
 
 export default PrivateRoute

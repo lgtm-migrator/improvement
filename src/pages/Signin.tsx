@@ -1,9 +1,9 @@
 import React, { FormEvent, ReactElement, useState } from 'react'
 import { LockClosedIcon } from '@heroicons/react/solid'
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 import { useAccessTokenMutation } from 'client/improvementApiClient'
-import { useToastHandling } from 'hooks'
+import useToastHandling from 'hooks/useToastHandling'
 import styles from './Signin.styles'
 
 const Signin: React.FC<{ isAuthenticated: boolean }> = ({
@@ -25,7 +25,7 @@ const Signin: React.FC<{ isAuthenticated: boolean }> = ({
     }
 
     if (isAuthenticated) {
-        return <Redirect to="/dashboard" />
+        return <Navigate to="/dashboard" />
     }
 
     return (
