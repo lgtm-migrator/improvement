@@ -77,7 +77,7 @@
         "test:noWatch": "npm run test -- --watchAll=false",
         "lint": "eslint --fix",
         "format": "prettier --write \"src/**/*.{ts,tsx}\"",
-        "generate-api-client": "npx @rtk-incubator/rtk-query-codegen-openapi --hooks http://localhost:8000/openapi.json --baseQuery ./src/client/baseQuery.ts:axiosBaseQuery --exportName generatedApi --file src/client/improvementApiClient.generated.ts && bash - generatedApiClientEslint.sh"
+        "generate-api-client": "npx @rtk-query/codegen-openapi ./src/client/codegen/openapi-config.json"
     },
     "browserslist": {
         "production": [

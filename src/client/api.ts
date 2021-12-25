@@ -1,4 +1,4 @@
-import { generatedApi } from './improvementApiClient.generated'
+import { generatedApi } from 'client/codegen/generatedApi'
 
 export const api = generatedApi.enhanceEndpoints({
     addTagTypes: ['User', 'UserBoards'],

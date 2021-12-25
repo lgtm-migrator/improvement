@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { MenuAlt2Icon } from '@heroicons/react/outline'
 import { SearchIcon } from '@heroicons/react/solid'
 
-import { User } from 'client/improvementApiClient.generated'
+import { User } from 'client/codegen/generatedApi'
 import styles from './HeaderNavSignedIn.styles'
 import ProfileDropdown from './ProfileDropdown'
 

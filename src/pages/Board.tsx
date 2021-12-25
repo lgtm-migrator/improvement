@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import useWebSocket from 'react-use-websocket'
 
-import { useGetOneUserBoardQuery } from 'client/improvementApiClient'
+import { useGetOneUserBoardQuery } from 'client/api'
 import { PathParams } from 'types/router'
 import Loader from 'components/elements/Loader'
 import { BoardData, SendBoardJson } from 'types/board'

@@ -1,7 +1,7 @@
 import React, { useState, FormEvent, ReactElement } from 'react'
 import { Navigate } from 'react-router-dom'
 
-import { useRegisterMutation } from 'client/improvementApiClient'
+import { useRegisterMutation } from 'client/api'
 import useToastHandling from 'hooks/useToastHandling'
 import styles from './Signup.styles'
 

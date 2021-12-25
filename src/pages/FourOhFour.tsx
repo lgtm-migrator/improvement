@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { User } from 'client/improvementApiClient.generated'
+import { User } from 'client/codegen/generatedApi'
 import Button from 'components/elements/Button'
 
 const FourOhFour: React.FC<{ user?: User }> = ({

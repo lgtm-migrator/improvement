@@ -2,7 +2,7 @@ import React, { FormEvent, ReactElement, useState } from 'react'
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { Navigate } from 'react-router-dom'
 
-import { useAccessTokenMutation } from 'client/improvementApiClient'
+import { useAccessTokenMutation } from 'client/api'
 import useToastHandling from 'hooks/useToastHandling'
 import styles from './Signin.styles'
 
