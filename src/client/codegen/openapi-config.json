@@ -1,0 +1,8 @@
+{
+    "schemaFile": "openapi.json",
+    "apiFile": "client/codegen/emptyApi.ts",
+    "apiImport": "emptyApi",
+    "outputFile": "generatedApi.ts",
+    "exportName": "generatedApi",
+    "hooks": false
+}

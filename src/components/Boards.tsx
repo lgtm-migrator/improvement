@@ -2,10 +2,7 @@ import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ChevronRightIcon, PlusIcon, XCircleIcon } from '@heroicons/react/solid'
 
-import {
-    useDeleteUserBoardMutation,
-    useListUserBoardsQuery,
-} from 'client/improvementApiClient'
+import { useDeleteUserBoardMutation, useListUserBoardsQuery } from 'client/api'
 import Button from 'components/elements/Button'
 import { useAppDispatch } from 'state/hooks'
 import NoBoards from 'components/NoBoards'
@@ -19,7 +16,7 @@ const Boards: React.FC = () => {
         data: boards,
         isLoading: boardsLoading,
         isFetching: fetchingBoards,
-    } = useListUserBoardsQuery('')
+    } = useListUserBoardsQuery()
     const [deleteBoard, { isLoading: deletingBoard }] =
         useDeleteUserBoardMutation()
 

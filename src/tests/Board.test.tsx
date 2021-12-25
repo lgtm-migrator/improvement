@@ -3,7 +3,7 @@ import { rest } from 'msw'
 import { Route, Routes } from 'react-router-dom'
 
 import { render, screen, setupMockServerForTests } from './utils/test-utils'
-import { Board as BoardType } from '../client/improvementApiClient.generated'
+import { Board as BoardType } from '../client/codegen/generatedApi'
 import Board from '../pages/Board'
 
 const existingBoardUuid = 'fb943da3-8442-4c68-99e9-0af47437788d'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router'
-import { User } from 'client/improvementApiClient.generated'
+import { User } from 'client/codegen/generatedApi'
 
 type Props = { user: User | undefined }
 

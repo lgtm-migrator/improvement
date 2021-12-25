@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { BoardCreate } from 'client/improvementApiClient.generated'
+import { BoardCreate } from 'client/codegen/generatedApi'
 
 type FormState = {
     newBoard: BoardCreate

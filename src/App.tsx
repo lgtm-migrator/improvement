@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
-import { useCurrentUserQuery } from 'client/improvementApiClient'
+import { useCurrentUserQuery } from 'client/api'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
 import {
     toast,
@@ -28,7 +28,7 @@ import MobileMenu from './components/MobileMenu'
 import ModalRoute from './components/ModalRoute'
 
 const App: React.FC = (): ReactElement => {
-    const { data: user, isLoading, isFetching } = useCurrentUserQuery('')
+    const { data: user, isLoading, isFetching } = useCurrentUserQuery()
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const toastStatus = useAppSelector((state) => state.toast)

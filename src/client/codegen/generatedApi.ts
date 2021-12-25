@@ -1,12 +1,5 @@
-/* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { createApi } from '@reduxjs/toolkit/query/react'
-import { axiosBaseQuery } from './baseQuery'
-
-export const generatedApi = createApi({
-    baseQuery: axiosBaseQuery,
-    tagTypes: [],
+import { emptyApi as api } from 'client/codegen/emptyApi'
+const injectedRtkApi = api.injectEndpoints({
     endpoints: (build) => ({
         register: build.mutation<RegisterApiResponse, RegisterApiArg>({
             query: (queryArg) => ({
@@ -69,7 +62,9 @@ export const generatedApi = createApi({
             }),
         }),
     }),
+    overrideExisting: false,
 })
+export { injectedRtkApi as generatedApi }
 export type RegisterApiResponse = /** status 200 Successful Response */ Token
 export type RegisterApiArg = {
     bodyRegisterApiAuthRegisterPost: BodyRegisterApiAuthRegisterPost
@@ -79,7 +74,7 @@ export type AccessTokenApiArg = {
     bodyAccessTokenApiAuthAccessTokenPost: BodyAccessTokenApiAuthAccessTokenPost
 }
 export type CurrentUserApiResponse = /** status 200 Successful Response */ User
-export type CurrentUserApiArg = {}
+export type CurrentUserApiArg = void
 export type CreateNewBoardApiResponse =
     /** status 200 Successful Response */ Board
 export type CreateNewBoardApiArg = {
@@ -87,7 +82,7 @@ export type CreateNewBoardApiArg = {
 }
 export type ListUserBoardsApiResponse =
     /** status 200 Successful Response */ Board[]
-export type ListUserBoardsApiArg = {}
+export type ListUserBoardsApiArg = void
 export type GetOneUserBoardApiResponse =
     /** status 200 Successful Response */ Board
 export type GetOneUserBoardApiArg = {
@@ -149,13 +144,3 @@ export type BoardCreate = {
     boardName: string
     ownerUuid: string
 }
-export const {
-    useRegisterMutation,
-    useAccessTokenMutation,
-    useCurrentUserQuery,
-    useCreateNewBoardMutation,
-    useListUserBoardsQuery,
-    useGetOneUserBoardQuery,
-    useUpdateUserBoardMutation,
-    useDeleteUserBoardMutation,
-} = generatedApi

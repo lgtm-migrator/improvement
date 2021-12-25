@@ -1,5 +1,4 @@
-/* eslint-disable camelcase */
-import { User } from 'client/improvementApiClient.generated'
+import { User } from 'client/codegen/generatedApi'
 
 export type ProfileMenuItemsType = {
     user: User
