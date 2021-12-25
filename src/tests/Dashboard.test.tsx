@@ -1,20 +1,16 @@
 import React from 'react'
-import { render } from '@testing-library/react'
-import { Provider } from 'react-redux'
+import { render } from './utils/test-utils'
 
-import { User } from '../client/improvementApiClient.generated'
-import { store } from '../state/store'
 import Dashboard from '../pages/Dashboard'
-
-const mockUser: User = {
-    userUuid: '123',
-    username: 'test user',
-    createdAt: '123',
-    updatedAt: '123'
-}
+import { Route, Routes } from 'react-router-dom'
 
 it('should render the dashboard page', () => {
-    const { queryByTitle } = render(<Provider store={store}><Dashboard user={mockUser} /></Provider>)
+    const { queryByTitle } = render(
+        <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>,
+        { renderOptions: { initialRoutes: ['/dashboard'] } }
+    )
     const dashboard = queryByTitle('dashboard')
 
     expect(dashboard).toBeInTheDocument()

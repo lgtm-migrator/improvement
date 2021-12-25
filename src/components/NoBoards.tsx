@@ -4,9 +4,11 @@ import { PlusIcon } from '@heroicons/react/solid'
 import Button from 'components/elements/Button'
 import { useAppDispatch } from 'state/hooks'
 import { openModal } from 'state/slices/modalSlice'
+import { useLocation } from 'react-router'
 
 const NoBoards = (): React.ReactElement => {
     const dispatch = useAppDispatch()
+    const path = useLocation().pathname
 
     return (
         <div className="text-center">
@@ -35,7 +37,11 @@ const NoBoards = (): React.ReactElement => {
                 <Button
                     size="m"
                     text="New Board"
-                    onClick={() => dispatch(openModal('newBoard'))}
+                    onClick={() =>
+                        dispatch(
+                            openModal({ modal: 'newBoard', modalPath: path })
+                        )
+                    }
                     icon={
                         <PlusIcon
                             className="-ml-1 mr-2 h-5 w-5"

@@ -1,6 +1,5 @@
 module.exports = {
-    purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-    darkMode: false, // or 'media' or 'class'
+    content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
     theme: {
         extend: {
             animation: {
@@ -9,7 +8,6 @@ module.exports = {
             },
         },
     },
-    // https://tailwindcss.com/docs/configuring-variants#ordering-variants
     variants: {
         backgroundColor: [
             'odd',

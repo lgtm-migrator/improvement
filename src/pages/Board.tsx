@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Redirect, useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import useWebSocket from 'react-use-websocket'
 
 import { useGetOneUserBoardQuery } from 'client/improvementApiClient'
@@ -19,7 +19,9 @@ type BoardWSHookProps = {
     lastJsonMessage: BoardData
 }
 
-const boardWebsocketBaseUrl = `${process.env.REACT_APP_WEBSOCKET_URL}/api/board/ws`
+const boardWebsocketBaseUrl = `${
+    import.meta.env.SNOWPACK_PUBLIC_APP_WEBSOCKET_URL
+}/api/board/ws`
 
 const Board: React.FC<BoardProps> = ({ boardName, boardUuid, pathId }) => {
     const [columnName, setColumnName] = useState('')
@@ -150,7 +152,7 @@ const BoardContainer: React.FC = () => {
         isFetching,
         error,
     } = useGetOneUserBoardQuery({
-        boardUuid: pathId,
+        boardUuid: pathId ?? '',
     })
 
     if (isLoading || isFetching) {
@@ -160,12 +162,12 @@ const BoardContainer: React.FC = () => {
         const boardError = error as BaseQueryError
 
         if (boardError.status === 404) {
-            return <Redirect to="/404" />
+            return <Navigate to="/404" />
         }
 
         return <div>Error while trying to get the board</div>
     }
-    if (board) {
+    if (board && pathId) {
         return (
             <Board
                 pathId={pathId}

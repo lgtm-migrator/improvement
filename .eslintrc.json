@@ -12,8 +12,8 @@
         "plugin:cypress/recommended",
         "prettier",
         "prettier/prettier",
-        "react-app/jest"
     ],
+    "ignorePatterns": ["*.json"],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "project": "./tsconfig.json",
@@ -41,6 +41,13 @@
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "react/prop-types": "off",
+        "react/function-component-definition": [
+            2,
+            {
+                "namedComponents": "arrow-function",
+                "unnamedComponents": "arrow-function"
+            }
+        ],
         "import/extensions": [
             "error",
             "ignorePackages",

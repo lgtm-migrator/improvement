@@ -1,6 +1,6 @@
 import React from 'react'
 import { rest } from 'msw'
-import { Route } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import { render, screen, setupMockServerForTests } from './utils/test-utils'
 import { Board as BoardType } from '../client/improvementApiClient.generated'
@@ -17,15 +17,22 @@ const mockBoard: BoardType = {
 
 export const handlers = [
     rest.get(`*/api/board/list/${existingBoardUuid}`, (_, res, ctx) => {
-      return res(ctx.json(mockBoard), ctx.delay(150))
-    })
+        return res(ctx.json(mockBoard), ctx.delay(150))
+    }),
 ]
 
 setupMockServerForTests(handlers)
 
 // TODO: How to handle websocket mocking?
-it('should render the requested Board name on the page', async () => {
-    render(<Route path="/board/:pathId" component={Board} />, { renderOptions: { initialRoutes: [`/board/${existingBoardUuid}`] } })
+it('should render the requested Board name on the page', () => {
+    render(
+        <Routes>
+            <Route path="/board/:pathId" element={<Board />} />
+        </Routes>,
+        {
+            renderOptions: { initialRoutes: [`/board/${existingBoardUuid}`] },
+        }
+    )
 
-    expect(await screen.queryAllByText(/test board/i)).toBeTruthy()
+    expect(screen.queryAllByText(/test board/i)).toBeTruthy()
 })

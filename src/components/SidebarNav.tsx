@@ -1,15 +1,14 @@
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import { sidebarNavigation } from 'constants/navigation'
-import { useAppSelector } from 'state/hooks'
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
 const SidebarNav = (): ReactElement => {
-    const pathname = useAppSelector((state) => state.router.location.pathname)
+    const pathname = useLocation().pathname
 
     return (
         <div className="hidden w-28 bg-indigo-700 overflow-y-auto md:block">

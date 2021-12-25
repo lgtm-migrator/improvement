@@ -41,7 +41,7 @@ type CustomBtnProps = {
     size: BtnSizes
     color: BtnColors
     text: string
-    btnRef: React.MutableRefObject<null>
+    btnRef: React.MutableRefObject<HTMLButtonElement | null>
     icon: React.ReactElement
     iconSpot: 'before' | 'after'
 }

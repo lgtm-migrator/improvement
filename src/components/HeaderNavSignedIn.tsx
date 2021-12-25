@@ -9,10 +9,10 @@ import ProfileDropdown from './ProfileDropdown'
 const userNavigation = [{ name: 'Your Profile', href: '#' }]
 
 const HeaderNavSignedIn: React.FC<{
-    user: User
+    user: User | undefined
     setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
 }> = ({ user, setMobileMenuOpen }): ReactElement => {
-    return (
+    return user ? (
         <header className="w-full">
             <div className="relative z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 shadow-sm flex">
                 <button
@@ -60,6 +60,8 @@ const HeaderNavSignedIn: React.FC<{
                 </div>
             </div>
         </header>
+    ) : (
+        <></>
     )
 }
 

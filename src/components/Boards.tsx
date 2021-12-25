@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { ChevronRightIcon, PlusIcon, XCircleIcon } from '@heroicons/react/solid'
 
 import {
@@ -7,33 +7,35 @@ import {
     useListUserBoardsQuery,
 } from 'client/improvementApiClient'
 import Button from 'components/elements/Button'
-import { useAppDispatch, useAppSelector } from 'state/hooks'
-import { openModal } from 'state/slices/modalSlice'
-import NewBoardModal from 'components/NewBoardModal'
+import { useAppDispatch } from 'state/hooks'
 import NoBoards from 'components/NoBoards'
+import { openModal } from 'state/slices/modalSlice'
 
-const Boards: React.FC<{ userUuid: string }> = ({ userUuid }) => {
+const Boards: React.FC = () => {
+    const dispatch = useAppDispatch()
+    const location = useLocation()
+
     const {
         data: boards,
         isLoading: boardsLoading,
         isFetching: fetchingBoards,
     } = useListUserBoardsQuery('')
-    const modalOpenState = useAppSelector((state) => state.modal.open)
-    const dispatch = useAppDispatch()
     const [deleteBoard, { isLoading: deletingBoard }] =
         useDeleteUserBoardMutation()
 
     const loading = boardsLoading || fetchingBoards || deletingBoard
 
+    const handleNewBoardClick = () =>
+        dispatch(openModal({ modal: 'newBoard', modalPath: location.pathname }))
+
     return (
         <div className="bg-white shadow overflow-hidden overflow-y-auto sm:rounded-md">
-            {modalOpenState && <NewBoardModal userUuid={userUuid} />}
             {boards?.length !== 0 && (
                 <div className="grid my-2 mr-3 place-items-end">
                     <Button
                         size="m"
                         text="New Board"
-                        onClick={() => dispatch(openModal('newBoard'))}
+                        onClick={handleNewBoardClick}
                         disabled={loading}
                         icon={
                             <PlusIcon

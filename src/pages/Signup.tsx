@@ -1,8 +1,8 @@
 import React, { useState, FormEvent, ReactElement } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 import { useRegisterMutation } from 'client/improvementApiClient'
-import { useToastHandling } from 'hooks'
+import useToastHandling from 'hooks/useToastHandling'
 import styles from './Signup.styles'
 
 const Signup: React.FC<{ isAuthenticated: boolean }> = ({
@@ -30,7 +30,7 @@ const Signup: React.FC<{ isAuthenticated: boolean }> = ({
     }
 
     if (isAuthenticated) {
-        return <Redirect to="/dashboard" />
+        return <Navigate to="/dashboard" />
     }
 
     return (

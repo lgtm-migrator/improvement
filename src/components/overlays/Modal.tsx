@@ -1,32 +1,27 @@
 import React, { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
-import { closeModal } from 'state/slices/modalSlice'
-import { useAppDispatch, useAppSelector } from 'state/hooks'
-
 type ModalProps = {
     children: React.ReactNode
-    handleModalClose?: () => void
+    open: boolean
+    initFocus?: React.MutableRefObject<HTMLElement | HTMLButtonElement | null>
+    handleModalClose: () => void
 }
 
 const Modal: React.FC<ModalProps> = ({
     children,
+    open,
+    initFocus,
     handleModalClose,
 }): React.ReactElement => {
-    const openState = useAppSelector((state) => state.modal.open)
-    const dispatch = useAppDispatch()
-
     return (
-        <Transition.Root show={openState} as={Fragment}>
+        <Transition.Root appear show={open} as={Fragment}>
             <Dialog
+                initialFocus={initFocus}
                 as="div"
                 auto-reopen="true"
                 className="fixed z-10 inset-0 overflow-y-auto"
-                onClose={() =>
-                    !handleModalClose
-                        ? dispatch(closeModal())
-                        : handleModalClose()
-                }
+                onClose={() => !open && handleModalClose()}
             >
                 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     <Transition.Child
