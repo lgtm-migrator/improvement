@@ -1,12 +1,16 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, KeyboardEvent, useRef, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
 import useWebSocket from 'react-use-websocket'
 
 import { useGetOneUserBoardQuery } from 'client/api'
 import { PathParams } from 'types/router'
+import { Column, ColumnUpdate } from 'types/column'
 import Loader from 'components/elements/Loader'
 import { BoardData, SendBoardJson } from 'types/board'
 import { BaseQueryError } from 'client/baseQuery'
+import ColumnComponent from 'components/Column'
+import AddComponent from 'components/AddComponent'
 
 type BoardProps = {
     pathId: string
@@ -24,112 +28,130 @@ const boardWebsocketBaseUrl = `${
 }/api/board/ws`
 
 const Board: React.FC<BoardProps> = ({ boardName, boardUuid, pathId }) => {
-    const [columnName, setColumnName] = useState('')
-    const [columnNewPos, setColumnNewPos] = useState<number>(0)
+    const [newColumnName, setNewColumnName] = useState('')
+    const columnsRef = useRef<HTMLDivElement>(null)
+
     const { sendJsonMessage, lastJsonMessage: boardData }: BoardWSHookProps =
         useWebSocket(`${boardWebsocketBaseUrl}/${pathId}`)
 
     return (
         <div>
-            <div className="grid place-items-center p-2">
+            <div className="grid place-items-center p-2 font-bold">
                 Board name: {boardName}
             </div>
-            <div className="grid place-items-center">
-                <input
-                    type="text"
-                    value={columnName}
-                    onChange={(e) => setColumnName(e.target.value)}
-                />
-                <button
-                    type="button"
-                    onClick={createNewColumn}
-                    className="border-2 border-gray-300 rounded-md p-1 mt-2"
-                >
-                    Create new column
-                </button>
-                <h1 className="text-lg text-gray-700 font-bold">Columns</h1>
-                <div>
-                    {!!boardData && boardData.columns ? (
-                        boardData.columns.map((column, idx) => (
-                            <div key={column.column_uuid}>
-                                <span className="mr-2 text-gray-400">
-                                    {idx}
-                                </span>
-                                <input
-                                    className="h-1 w-20 disabled:bg-gray-200"
-                                    type="number"
-                                    onChange={(e) => {
-                                        setColumnNewPos(+e.target.value)
-                                    }}
+            <div
+                ref={columnsRef}
+                className="grid place-items-center overflow-auto"
+            >
+                <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
+                    <Droppable
+                        droppableId="all-columns"
+                        direction="horizontal"
+                        type="column"
+                    >
+                        {(provided) => (
+                            <div
+                                className="flex"
+                                {...provided.droppableProps}
+                                ref={provided.innerRef}
+                            >
+                                {boardData?.column_order?.map((colId, idx) => {
+                                    const column = boardData.columns.find(
+                                        (column) => column.column_uuid === colId
+                                    )
+
+                                    return (
+                                        <ColumnComponent
+                                            key={column?.column_uuid}
+                                            index={idx}
+                                            column={column}
+                                            changeColName={handleColNameChange}
+                                            deleteColumn={deleteColumn}
+                                        />
+                                    )
+                                })}
+                                {provided.placeholder}
+                                <AddComponent
+                                    value={newColumnName}
+                                    placeholder={
+                                        'Add column name & press enter'
+                                    }
+                                    onInputChange={handleNewColNameChange}
+                                    onKeyPress={createNewColumn}
                                 />
-                                <button
-                                    className="mr-1 ml-1"
-                                    type="button"
-                                    onClick={() =>
-                                        updateColumn(
-                                            column.column_uuid,
-                                            column.column_name
-                                        )
-                                    }
-                                >
-                                    &#9881;
-                                </button>
-                                <span>{column.column_name}</span>
-                                <span className="ml-1">
-                                    {column.column_uuid}
-                                </span>
-                                <button
-                                    className="ml-3"
-                                    type="button"
-                                    onClick={() =>
-                                        deleteColumn(column.column_uuid)
-                                    }
-                                >
-                                    &#10060;
-                                </button>
                             </div>
-                        ))
-                    ) : (
-                        <div className="grid place-items-center">
-                            Data for {boardName} unavailable
-                        </div>
-                    )}
-                </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
             </div>
         </div>
     )
 
-    function createNewColumn() {
-        const newColumn = {
-            column_name: columnName,
-            board_uuid: boardUuid,
-        }
-        const columnCreateData = {
-            new_column: newColumn,
-            column_order: boardData.column_order,
-        }
-        sendJsonMessage({ crud: 'create', data: columnCreateData })
-    }
+    function onDragEnd(result: DropResult) {
+        const { draggableId: colUuid, source, destination } = result
 
-    function updateColumn(columnUuid: string, updatedColumnName: string) {
+        const noChange =
+            !destination ||
+            (destination.droppableId === source.droppableId &&
+                destination.index === source.index)
+
+        if (noChange) return
+
         const newColumnOrder = boardData.column_order
-        const currentColIdx = newColumnOrder.indexOf(columnUuid)
+        const currentColIdx = newColumnOrder.indexOf(colUuid)
+        const column = boardData.columns.find(
+            (col) => col.column_uuid === colUuid
+        )
 
         // remove column from old spot and move to new
         newColumnOrder.splice(currentColIdx, 1)
-        newColumnOrder.splice(columnNewPos, 0, columnUuid)
+        newColumnOrder.splice(destination.index, 0, colUuid)
 
         const updatedColumn = {
-            column_uuid: columnUuid,
-            column_name: updatedColumnName,
+            column_uuid: colUuid,
+            column_name: column?.column_name ?? '',
             board_uuid: boardUuid,
         }
-        const columnUpdatedData = {
+        const columnUpdateData = {
             updated_column: updatedColumn,
             column_order: newColumnOrder,
         }
 
-        sendJsonMessage({ crud: 'update', data: columnUpdatedData })
+        updateColumn(columnUpdateData)
+    }
+
+    function handleNewColNameChange(e: ChangeEvent<HTMLTextAreaElement>) {
+        e.preventDefault()
+        setNewColumnName(e.target.value)
+    }
+
+    function handleColNameChange(column: Column, updatedName: string) {
+        const columnUpdateData = {
+            updated_column: { ...column, column_name: updatedName },
+            column_order: boardData.column_order,
+        }
+
+        updateColumn(columnUpdateData)
+    }
+
+    function createNewColumn(e: KeyboardEvent<HTMLTextAreaElement>) {
+        if (e.key === 'Enter') {
+            e.preventDefault()
+            const newColumn = {
+                column_name: newColumnName,
+                board_uuid: boardUuid,
+            }
+            const columnCreateData = {
+                new_column: newColumn,
+                column_order: boardData.column_order,
+            }
+            sendJsonMessage({ crud: 'create', data: columnCreateData })
+            setNewColumnName('')
+        }
+    }
+
+    function updateColumn(columnUpdateData: ColumnUpdate) {
+        sendJsonMessage({ crud: 'update', data: columnUpdateData })
     }
 
     function deleteColumn(columnUuid: string) {
