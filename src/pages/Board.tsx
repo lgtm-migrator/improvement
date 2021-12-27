@@ -11,6 +11,7 @@ import { BoardData, SendBoardJson } from 'types/board'
 import { BaseQueryError } from 'client/baseQuery'
 import ColumnComponent from 'components/Column'
 import AddComponent from 'components/AddComponent'
+import { handleWebsocketAuth } from 'utils/websocket'
 
 type BoardProps = {
     pathId: string
@@ -19,8 +20,10 @@ type BoardProps = {
 }
 
 type BoardWSHookProps = {
+    sendMessage: (message: string) => void
     sendJsonMessage: (jsonMsg: SendBoardJson) => void
     lastJsonMessage: BoardData
+    readyState: number
 }
 
 const boardWebsocketBaseUrl = `${
@@ -31,8 +34,13 @@ const Board: React.FC<BoardProps> = ({ boardName, boardUuid, pathId }) => {
     const [newColumnName, setNewColumnName] = useState('')
     const columnsRef = useRef<HTMLDivElement>(null)
 
-    const { sendJsonMessage, lastJsonMessage: boardData }: BoardWSHookProps =
-        useWebSocket(`${boardWebsocketBaseUrl}/${pathId}`)
+    const {
+        sendJsonMessage,
+        lastJsonMessage: boardData,
+        sendMessage,
+    }: BoardWSHookProps = useWebSocket(`${boardWebsocketBaseUrl}/${pathId}`, {
+        onOpen: () => handleWebsocketAuth({ sendMessage }),
+    })
 
     return (
         <div>
