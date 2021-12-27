@@ -72,6 +72,7 @@ const Board: React.FC<BoardProps> = ({ boardName, boardUuid, pathId }) => {
                                 })}
                                 {provided.placeholder}
                                 <AddComponent
+                                    name="add column"
                                     value={newColumnName}
                                     placeholder={
                                         'Add column name & press enter'

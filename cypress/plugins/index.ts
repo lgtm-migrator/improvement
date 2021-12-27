@@ -15,8 +15,15 @@
 /**
  * @type {Cypress.PluginConfig}
  */
-// eslint-disable-next-line no-unused-vars
-module.exports = (on, config) => {
-    // `on` is used to hook into various events Cypress emits
-    // `config` is the resolved Cypress config
+ import pgp from 'pg-promise'
+
+module.exports = (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) => {
+    const dbconn = config.env.DB_URL
+    const db = pgp()(dbconn)
+
+    on('task', {
+        dbQuery: (query: string) => db.any(query)
+    })
 }
+
+export {}

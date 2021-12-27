@@ -23,9 +23,9 @@ import PrivateRoute from 'components/PrivateRoute'
 import ModalProvider from 'src/components/ModalProvider'
 import { modalSelector } from 'state/slices/modalSlice'
 import SidebarNav from 'components/SidebarNav'
-import HeaderNavSignedIn from './components/HeaderNavSignedIn'
-import MobileMenu from './components/MobileMenu'
-import ModalRoute from './components/ModalRoute'
+import HeaderNavSignedIn from 'components/HeaderNavSignedIn'
+import MobileMenu from 'components/MobileMenu'
+import ModalRoute from 'components/ModalRoute'
 
 const App: React.FC = (): ReactElement => {
     const { data: user, isLoading, isFetching } = useCurrentUserQuery()
@@ -96,12 +96,15 @@ const App: React.FC = (): ReactElement => {
                                 }
                             />
                         </Route>
-                        <Route
-                            path="/dashboard"
-                            element={<PrivateRoute user={user} />}
-                        >
-                            <Route path="/dashboard" element={<Dashboard />} />
-                        </Route>
+                        {['/', '/dashboard'].map((path, idx) => (
+                            <Route
+                                key={`${path}-${idx}`}
+                                path={path}
+                                element={<PrivateRoute user={user} />}
+                            >
+                                <Route path={path} element={<Dashboard />} />
+                            </Route>
+                        ))}
                         <Route
                             path="/board/:pathId"
                             element={<PrivateRoute user={user} />}

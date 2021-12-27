@@ -37,8 +37,16 @@ export const { openModal, closeModal } = modalSlice.actions
 export const modalActions = modalSlice.actions
 export default modalSlice.reducer
 
-export const modalSelector = (state: RootState) => ({
-    modalOpen: state.modal.open,
-    modalName: state.modal.openedModalName,
-    modalRoute: `${state.modal.modalPath}/modal/${state.modal.openedModalName}`,
-})
+export const modalSelector = (state: RootState) => {
+    const modalPath = state.modal.modalPath
+    const modalRoute =
+        modalPath !== '/'
+            ? `${modalPath}/modal/${state.modal.openedModalName}`
+            : `/modal/${state.modal.openedModalName}`
+
+    return {
+        modalOpen: state.modal.open,
+        modalName: state.modal.openedModalName,
+        modalRoute,
+    }
+}

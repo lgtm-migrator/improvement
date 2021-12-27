@@ -9,8 +9,6 @@ import { useAppDispatch, useAppSelector } from 'state/hooks'
 import { useCreateNewBoardMutation } from 'client/api'
 import { setNewBoardForm, resetNewBoardForm } from 'state/slices/formSlice'
 import styles from './NewBoardModal.styles'
-import { useLocation } from 'react-router'
-import { useNavigate } from 'react-router-dom'
 
 type CancelBtnRef = React.MutableRefObject<HTMLButtonElement | null>
 
@@ -19,9 +17,6 @@ const NewBoardModal: React.FC<{ open: boolean; userUuid: string }> = ({
     userUuid,
 }) => {
     const { boardName } = useAppSelector((state) => state.forms.newBoard)
-    const path = useLocation().pathname
-    const navigate = useNavigate()
-    const parentPath = path.substring(0, path.lastIndexOf('/modal'))
     const [error, setError] = useState(false)
 
     const cancelButtonRef = useRef() as CancelBtnRef
@@ -81,7 +76,6 @@ const NewBoardModal: React.FC<{ open: boolean; userUuid: string }> = ({
     function handleModalClose() {
         dispatch(resetNewBoardForm())
         dispatch(closeModal())
-        navigate(parentPath)
     }
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {

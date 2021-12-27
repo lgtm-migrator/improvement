@@ -24,6 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import 'cypress-localstorage-commands'
+
 Cypress.Commands.add('signup', ({ username, password }) => {
     cy.contains('a', 'Sign up').click()
 

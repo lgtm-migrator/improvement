@@ -66,6 +66,7 @@ const ColumnContainer: React.FC<ColumnProps> = ({
                                 }}
                             />
                             <span
+                                data-test-id={`delete-column-${index}`}
                                 className="ml-1"
                                 onClick={() => deleteColumn(column.column_uuid)}
                             >

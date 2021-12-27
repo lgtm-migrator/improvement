@@ -1,6 +1,10 @@
 import { createRandomUser } from '../support/helpers'
 
 describe('sign up and sign in', () => {
+    after(() => {
+        cy.task('dbQuery', "DELETE FROM users WHERE username ILIKE 'test%';")
+    })
+
     beforeEach(() => {
         cy.visit('/')
     })

@@ -91,6 +91,7 @@ const Boards: React.FC = () => {
                             </Link>
                             <div className="ml-5 flex items-center">
                                 <button
+                                    data-test-id={`delete-board-${idx}`}
                                     type="button"
                                     onClick={() =>
                                         deleteBoard({
