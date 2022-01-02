@@ -6,7 +6,13 @@ import { User } from 'client/codegen/generatedApi'
 import styles from './HeaderNavSignedIn.styles'
 import ProfileDropdown from './ProfileDropdown'
 
-const userNavigation = [{ name: 'Your Profile', href: '#' }]
+type UserNav = {
+    name: string
+    href: string
+}[]
+
+// const userNavigation = [{ name: 'Your Profile', href: '#' }]
+const userNavigation: UserNav = []
 
 const HeaderNavSignedIn: React.FC<{
     user: User | undefined
