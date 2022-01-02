@@ -2,6 +2,7 @@ import React, { ChangeEvent, KeyboardEventHandler } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 
 type Props = {
+    addRef: React.RefObject<HTMLTextAreaElement>
     name: string
     value: string
     placeholder: string
@@ -10,6 +11,7 @@ type Props = {
 }
 
 const AddComponent = ({
+    addRef,
     name,
     value,
     placeholder,
@@ -18,11 +20,13 @@ const AddComponent = ({
 }: Props) => {
     return (
         <TextareaAutosize
+            ref={addRef}
             name={name}
-            className="m-auto resize-none text-center rounded text-sm"
+            className="resize-none text-center rounded text-sm"
             value={value}
             placeholder={placeholder}
             onChange={onInputChange}
+            onKeyUp={(e) => e.key === 'Escape' && addRef.current?.blur()}
             onKeyPress={onKeyPress}
         />
     )
