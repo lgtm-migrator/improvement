@@ -1,14 +1,19 @@
 import React, { ReactElement } from 'react'
 import { Menu } from '@headlessui/react'
 
+import { useAppDispatch } from 'state/hooks'
+import { logout } from 'state/slices/authSlice'
+import { resetApiState } from 'client/api'
+
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
 const SignoutBtn = (): ReactElement => {
+    const dispatch = useAppDispatch()
     const handleLogout = () => {
-        localStorage.removeItem('accessToken')
-        window.location.replace('/signin')
+        dispatch(logout())
+        dispatch(resetApiState())
     }
 
     return (

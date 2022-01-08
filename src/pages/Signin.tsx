@@ -3,7 +3,7 @@ import { LockClosedIcon } from '@heroicons/react/solid'
 import { Navigate } from 'react-router-dom'
 
 import { useAccessTokenMutation } from 'client/api'
-import useToastDispatch from 'src/hooks/useToastDispatch'
+import useToastDispatch from 'hooks/useToastDispatch'
 import styles from './Signin.styles'
 
 const Signin: React.FC<{ isAuthenticated: boolean }> = ({

@@ -2,7 +2,7 @@ import React, { useState, FormEvent, ReactElement } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { useRegisterMutation } from 'client/api'
-import useToastDispatch from 'src/hooks/useToastDispatch'
+import useToastDispatch from 'hooks/useToastDispatch'
 import styles from './Signup.styles'
 
 const Signup: React.FC<{ isAuthenticated: boolean }> = ({
@@ -22,11 +22,6 @@ const Signup: React.FC<{ isAuthenticated: boolean }> = ({
     const onRegisterSubmit = (event: FormEvent): void => {
         event.preventDefault()
         register({ bodyRegisterApiAuthRegisterPost: { username, password } })
-            .unwrap()
-            .then((data) => {
-                localStorage.setItem('accessToken', data.accessToken)
-                window.location.reload()
-            })
     }
 
     if (isAuthenticated) {
