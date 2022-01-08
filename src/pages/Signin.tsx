@@ -3,7 +3,7 @@ import { LockClosedIcon } from '@heroicons/react/solid'
 import { Navigate } from 'react-router-dom'
 
 import { useAccessTokenMutation } from 'client/api'
-import useToastHandling from 'hooks/useToastHandling'
+import useToastDispatch from 'src/hooks/useToastDispatch'
 import styles from './Signin.styles'
 
 const Signin: React.FC<{ isAuthenticated: boolean }> = ({
@@ -12,7 +12,7 @@ const Signin: React.FC<{ isAuthenticated: boolean }> = ({
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [login, { isSuccess, error: loginError }] = useAccessTokenMutation()
-    useToastHandling({
+    useToastDispatch({
         successMsg: `${isSuccess ? `Welcome ${username}!` : ''}`,
         apiError: loginError,
     })

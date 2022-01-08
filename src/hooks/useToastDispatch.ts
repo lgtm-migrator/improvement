@@ -18,7 +18,7 @@ type ToastHookProps = {
     apiError?: unknown
 }
 
-const useToastHandling = ({
+const useToastDispatch = ({
     msg,
     infoMsg,
     warningMsg,
@@ -52,4 +52,4 @@ const useToastHandling = ({
     }, [dispatch, successMsg, apiError, errorMsg, msg, infoMsg, warningMsg])
 }
 
-export default useToastHandling
+export default useToastDispatch

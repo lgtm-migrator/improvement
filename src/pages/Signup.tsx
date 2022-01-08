@@ -2,7 +2,7 @@ import React, { useState, FormEvent, ReactElement } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { useRegisterMutation } from 'client/api'
-import useToastHandling from 'hooks/useToastHandling'
+import useToastDispatch from 'src/hooks/useToastDispatch'
 import styles from './Signup.styles'
 
 const Signup: React.FC<{ isAuthenticated: boolean }> = ({
@@ -12,7 +12,7 @@ const Signup: React.FC<{ isAuthenticated: boolean }> = ({
     const [password, setPassword] = useState('')
     const [register, { isSuccess, error: registerError }] =
         useRegisterMutation()
-    useToastHandling({
+    useToastDispatch({
         successMsg: `${
             isSuccess ? `Signed up successfully. Welcome ${username}!` : ''
         }`,
