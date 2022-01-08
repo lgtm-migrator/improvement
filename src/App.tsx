@@ -1,15 +1,9 @@
-import React, { ReactElement, useEffect, useState } from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import React, { ReactElement, useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
 
 import { useCurrentUserQuery } from 'client/api'
-import { useAppDispatch, useAppSelector } from 'state/hooks'
-import {
-    toast,
-    successToast,
-    errorToast,
-    warningToast,
-    infoToast,
-} from 'utils/toast'
+import useModalNavigation from 'hooks/useModalNavigation'
+import useToastHandler from 'hooks/useToastHandler'
 
 import Board from 'pages/Board'
 import FourOhFour from 'pages/FourOhFour'
@@ -21,7 +15,6 @@ import Dashboard from 'pages/Dashboard'
 import Loader from 'components/elements/Loader'
 import PrivateRoute from 'components/PrivateRoute'
 import ModalProvider from 'src/components/ModalProvider'
-import { modalSelector } from 'state/slices/modalSlice'
 import SidebarNav from 'components/SidebarNav'
 import HeaderNavSignedIn from 'components/HeaderNavSignedIn'
 import MobileMenu from 'components/MobileMenu'
@@ -29,39 +22,10 @@ import ModalRoute from 'components/ModalRoute'
 
 const App: React.FC = (): ReactElement => {
     const { data: user, isLoading, isFetching } = useCurrentUserQuery()
-    const dispatch = useAppDispatch()
-    const navigate = useNavigate()
-    const toastStatus = useAppSelector((state) => state.toast)
-    const { modalOpen, modalRoute } = useAppSelector(modalSelector)
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
     const loading = isLoading || isFetching
-
-    useEffect(() => {
-        if (modalOpen) {
-            navigate(modalRoute)
-        }
-    }, [modalOpen])
-
-    if (toastStatus.msg) {
-        toast(toastStatus.msg, dispatch)
-    }
-
-    if (toastStatus.successMsg) {
-        successToast(toastStatus.successMsg, dispatch)
-    }
-
-    if (toastStatus.errorMsg) {
-        errorToast(toastStatus.errorMsg, dispatch)
-    }
-
-    if (toastStatus.warningMsg) {
-        warningToast(toastStatus.warningMsg, dispatch)
-    }
-
-    if (toastStatus.infoMsg) {
-        infoToast(toastStatus.infoMsg, dispatch)
-    }
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const { modalOpen, modalRoute } = useModalNavigation()
+    useToastHandler()
 
     return (
         <div className={user && 'h-screen bg-gray-50 flex overflow-hidden'}>

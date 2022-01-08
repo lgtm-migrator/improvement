@@ -4,11 +4,13 @@ import useWebSocket from 'react-use-websocket'
 import { BoardWSHookProps } from 'types/board'
 import { boardWebsocketBaseUrl } from 'constants/board'
 import { handleWebsocketAuth } from 'utils/websocket'
-import { useAppDispatch } from 'state/hooks'
+import { useAppDispatch, useAppSelector } from 'state/hooks'
 import { setBoard, clearBoard } from 'state/slices/boardSlice'
+import { authTokenSelector } from 'state/slices/authSlice'
 
 const useBoardWebsocket = (boardUuid: string) => {
     const dispatch = useAppDispatch()
+    const authToken = useAppSelector(authTokenSelector)
     const {
         sendJsonMessage,
         lastJsonMessage: boardData,
@@ -16,7 +18,7 @@ const useBoardWebsocket = (boardUuid: string) => {
     }: BoardWSHookProps = useWebSocket(
         `${boardWebsocketBaseUrl}/${boardUuid}`,
         {
-            onOpen: () => handleWebsocketAuth({ sendMessage }),
+            onOpen: () => handleWebsocketAuth({ sendMessage, authToken }),
         }
     )
 
