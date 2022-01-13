@@ -22,7 +22,7 @@
     },
     "devDependencies": {
         "@babel/core": "^7.16.7",
-        "@babel/preset-env": "^7.16.7",
+        "@babel/preset-env": "^7.16.8",
         "@babel/preset-react": "^7.16.7",
         "@babel/preset-typescript": "^7.16.7",
         "@cypress/skip-test": "^2.6.1",
@@ -42,13 +42,13 @@
         "@types/react-dom": "^17.0.11",
         "@types/snowpack-env": "^2.3.4",
         "@types/testing-library__jest-dom": "^5.14.2",
-        "@typescript-eslint/eslint-plugin": "^5.9.0",
-        "@typescript-eslint/parser": "^5.9.0",
+        "@typescript-eslint/eslint-plugin": "^5.9.1",
+        "@typescript-eslint/parser": "^5.9.1",
         "autoprefixer": "^10.4.2",
         "babel-jest": "^27.4.6",
         "babel-preset-react-app": "^10.0.1",
         "cssnano": "^5.0.15",
-        "cypress": "^9.2.0",
+        "cypress": "^9.2.1",
         "cypress-localstorage-commands": "^1.6.1",
         "eslint": "^8.6.0",
         "eslint-config-airbnb": "^19.0.4",
@@ -62,15 +62,15 @@
         "eslint-plugin-react-hooks": "^4.3.0",
         "husky": "^7.0.4",
         "jest": "^27.4.7",
-        "msw": "^0.36.3",
+        "msw": "^0.36.4",
         "pg-promise": "^10.11.1",
         "postcss": "^8.4.5",
         "prettier": "2.5.1",
         "snowpack": "^3.8.6",
-        "tailwindcss": "^3.0.12",
+        "tailwindcss": "^3.0.13",
         "ts-jest": "^27.1.2",
         "typescript": "^4.5.4",
-        "webpack": "^5.65.0"
+        "webpack": "^5.66.0"
     },
     "scripts": {
         "start": "snowpack dev --polyfill-node",
@@ -83,7 +83,7 @@
         "lint": "eslint --fix",
         "format": "prettier --write \"src/**/*.{ts,tsx}\"",
         "generate-api-client": "npx @rtk-query/codegen-openapi ./src/client/codegen/openapi-config.json",
-        "depcheck": "npx npm-check-updates"
+        "check-updates": "npx npm-check-updates"
     },
     "browserslist": {
         "production": [
