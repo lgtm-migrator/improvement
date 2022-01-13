@@ -28,7 +28,7 @@ const sortCardsByNewOrder = (cards: CardData[], newCardOrder: string[]) =>
     )
 
 const boardSlice = createSlice({
-    name: 'form',
+    name: 'board',
     initialState,
     reducers: {
         setBoard(_, action: PayloadAction<BoardState>) {
