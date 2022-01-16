@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
-import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 import { useGetOneUserBoardQuery } from 'client/api'
 import { PathParams } from 'types/router'
@@ -12,25 +12,24 @@ import useBoardDnd from 'hooks/useBoardDnd'
 import useBoardWebsocket from 'hooks/useBoardWebsocket'
 import useColumnDataHandling from 'hooks/useColumnDataHandling'
 import { useAppSelector } from 'state/hooks'
+import { columnsWithCards } from 'state/slices/boardSlice'
 
 type BoardProps = {
     boardName: string
     boardUuid: string
 }
 
-type UseDropResult = DropResult | undefined
-
 const Board: React.FC<BoardProps> = ({ boardName, boardUuid }) => {
-    const boardData = useAppSelector((state) => state.board)
-    const [dndDropResult, setDndDropResult] = useState<UseDropResult>(undefined)
+    const columns = useAppSelector(columnsWithCards)
+    const search = useAppSelector((state) => state.search.input)
+
     const columnsRef = useRef<HTMLDivElement>(null)
     const addRef = useRef<HTMLTextAreaElement>(null)
 
     const { sendBoardWsMsg } = useBoardWebsocket(boardUuid)
 
-    useBoardDnd({
+    const { setDndDropResult } = useBoardDnd({
         boardUuid,
-        dndDropResult,
         sendBoardWsMsg,
     })
 
@@ -42,7 +41,7 @@ const Board: React.FC<BoardProps> = ({ boardName, boardUuid }) => {
         deleteColumn,
     } = useColumnDataHandling({ boardUuid, sendBoardWsMsg })
 
-    const noCols = boardData?.columnOrder.length === 0
+    const noCols = columns.length === 0
 
     return (
         <div>
@@ -69,22 +68,21 @@ const Board: React.FC<BoardProps> = ({ boardName, boardUuid }) => {
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
                             >
-                                {boardData?.columnOrder?.map((colId, idx) => {
-                                    const column = boardData.columns[colId]
-                                    const cards = boardData.cards[colId]
-
-                                    return (
+                                {columns
+                                    ?.filter((column) =>
+                                        column.column_name.includes(search)
+                                    )
+                                    .map((column, idx) => (
                                         <ColumnComponent
                                             key={column?.column_uuid}
                                             index={idx}
                                             column={column}
-                                            cards={cards}
+                                            cards={column.cards}
                                             changeColName={handleColNameChange}
                                             deleteColumn={deleteColumn}
                                             sendBoardWsMsg={sendBoardWsMsg}
                                         />
-                                    )
-                                })}
+                                    ))}
                                 {provided.placeholder}
                                 <div className={'mt-3'}>
                                     <AddComponent

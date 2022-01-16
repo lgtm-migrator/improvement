@@ -7,7 +7,7 @@ import Button from 'components/elements/Button'
 import { useAppDispatch, useAppSelector } from 'state/hooks'
 import NoBoards from 'components/NoBoards'
 import { openModal } from 'state/slices/modalSlice'
-import { DEFAULT_POLL_INTERVAL } from 'src/constants'
+import { DEFAULT_POLL_INTERVAL } from 'constants/index'
 
 const Boards: React.FC = () => {
     const dispatch = useAppDispatch()

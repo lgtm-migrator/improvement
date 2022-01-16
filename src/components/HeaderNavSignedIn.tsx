@@ -61,9 +61,7 @@ const HeaderNavSignedIn: React.FC<{
                                     id="search_field"
                                     className={styles.searchInput}
                                     placeholder={`Search ${
-                                        isDashboard
-                                            ? 'boards...'
-                                            : 'columns and cards...'
+                                        isDashboard ? 'boards...' : 'columns...'
                                     }`}
                                     type="search"
                                     onInput={handleSearch}

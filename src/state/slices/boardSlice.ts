@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { CardData } from 'types/card'
 import { BoardCards, BoardColumns } from 'types/board'
 import { Column } from 'types/column'
+import { RootState } from '../store'
 
 export type BoardState = {
     columnOrder: string[]
@@ -138,3 +139,13 @@ export const {
 } = boardSlice.actions
 export const boardActions = boardSlice.actions
 export default boardSlice.reducer
+
+export const columnsWithCards = (state: RootState) => {
+    const columnOrder = state.board.columnOrder
+    const columns = columnOrder?.map((colId) => {
+        const column = state.board.columns[colId]
+        const cards = state.board.cards[column.column_uuid]
+        return { cards, ...column }
+    })
+    return columns
+}
