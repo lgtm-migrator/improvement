@@ -11,7 +11,7 @@
         "plugin:@typescript-eslint/recommended",
         "plugin:cypress/recommended",
         "prettier",
-        "prettier/prettier",
+        "prettier/prettier"
     ],
     "ignorePatterns": ["*.json"],
     "parser": "@typescript-eslint/parser",
@@ -74,8 +74,49 @@
         ]
     },
     "settings": {
+        "react": {
+          "version": "detect" // auto-detect React version from package.json.
+        },
+        "import/parsers": {
+          "@typescript-eslint/parser": [".ts", ".tsx"] // use typescript-eslint parser for .ts|tsx files.
+        },
         "import/resolver": {
-            "typescript": {}
+          "typescript": {
+            "alwaysTryTypes": true // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`.
+          }
         }
-    }
+      },
+      "overrides": [
+        {
+          "files": [
+            "**/__tests__/**/*.[jt]s?(x)",
+            "**/?(*.)+(spec|test).[jt]s?(x)"
+          ], // Override config for same files pattern as jest `testMatch` default value
+          "extends": [
+            "plugin:jest/recommended",
+            "plugin:jest/style",
+            "plugin:jest-dom/recommended",
+            "plugin:testing-library/react"
+          ],
+          "plugins": ["jest", "jest-dom", "testing-library"],
+          "rules": {
+            "jest/no-disabled-tests": "warn",
+            "jest/no-focused-tests": "error",
+            "jest/no-identical-title": "error",
+            "jest/prefer-to-have-length": "warn",
+            "jest/valid-expect": "error",
+            "jest-dom/prefer-checked": "error",
+            "jest-dom/prefer-enabled-disabled": "error",
+            "jest-dom/prefer-required": "error",
+            "jest-dom/prefer-to-have-attribute": "error",
+            "testing-library/await-async-query": "error",
+            "testing-library/no-await-sync-query": "error",
+            "testing-library/no-debugging-utils": "warn",
+            "testing-library/no-dom-import": "off"
+          },
+          "env": {
+            "jest/globals": true // enable Jest global variables.
+          }
+        }
+      ]
 }

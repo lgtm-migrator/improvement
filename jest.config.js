@@ -1,10 +1,11 @@
 const path = require('path')
 
 module.exports = {
+    roots: ['<rootDir>/src/'],
     preset: 'ts-jest',
     testEnvironment: 'jsdom',
     moduleDirectories: ['node_modules', 'src'],
-    setupFilesAfterEnv: ['./src/setupTests.ts'],
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
     transform: {
         '^.+\\.(js|jsx|ts|tsx)$': path.resolve(
             __dirname,
