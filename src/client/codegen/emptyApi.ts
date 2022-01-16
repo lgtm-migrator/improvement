@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { axiosBaseQuery, HeadersConf } from 'client/baseQuery'
 import { RootState } from 'src/state/store'
 
-const baseUrl = `${import.meta.env.SNOWPACK_PUBLIC_APP_API_URL}`
+const baseUrl = `${import.meta.env.VITE_APP_API_URL}`
 
 // initialize an empty api service that we'll inject endpoints into later as needed
 export const emptyApi = createApi({

@@ -16,7 +16,7 @@
         "noEmit": true,
         "jsx": "react-jsx",
         "baseUrl": "./",
-        "types": ["snowpack-env", "node", "jest", "@testing-library/jest-dom"],
+        "types": ["node", "jest", "@testing-library/jest-dom"],
         "paths": {
             "src/*": ["./src/*"],
             "client/*": ["./src/client/*"],
@@ -30,6 +30,6 @@
             "utils/*": ["./src/utils/*"],
         }
     },
-    "include": ["**/*.ts", "**/*.tsx", "rootTypes/*"],
-    "exclude": ["node_modules", "src/tests"]
+    "include": ["src/**/*.ts", "src/**/*.tsx", "rootTypes/*", "vite.config.ts", "jest.setup.ts"],
+    "exclude": ["node_modules"]
 }
