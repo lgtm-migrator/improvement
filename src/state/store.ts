@@ -5,6 +5,7 @@ import { api } from 'client/api'
 import authReducer from 'state/slices/authSlice'
 import boardReducer from 'state/slices/boardSlice'
 import modalReducer from 'state/slices/modalSlice'
+import searchReducer from 'state/slices/searchSlice'
 import formReducer from 'state/slices/formSlice'
 import toastReducer from 'state/slices/toastSlice'
 
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     board: boardReducer,
     forms: formReducer,
     modal: modalReducer,
+    search: searchReducer,
     toast: toastReducer,
 })
 

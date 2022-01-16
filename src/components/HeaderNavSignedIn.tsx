@@ -1,10 +1,13 @@
 import React, { ReactElement } from 'react'
+import { useLocation } from 'react-router'
 import { MenuAlt2Icon } from '@heroicons/react/outline'
 import { SearchIcon } from '@heroicons/react/solid'
 
 import { User } from 'client/codegen/generatedApi'
-import styles from './HeaderNavSignedIn.styles'
-import ProfileDropdown from './ProfileDropdown'
+import styles from 'components/HeaderNavSignedIn.styles'
+import ProfileDropdown from 'components/ProfileDropdown'
+import { useAppDispatch } from 'state/hooks'
+import { setSearch } from 'state/slices/searchSlice'
 
 type UserNav = {
     name: string
@@ -18,6 +21,14 @@ const HeaderNavSignedIn: React.FC<{
     user: User | undefined
     setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>
 }> = ({ user, setMobileMenuOpen }): ReactElement => {
+    const dispatch = useAppDispatch()
+    const location = useLocation()
+    const isDashboard =
+        location.pathname === '/dashboard' || location.pathname === '/'
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) =>
+        dispatch(setSearch(e.target.value))
+
     return user ? (
         <header className="w-full">
             <div className="relative z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 shadow-sm flex">
@@ -33,8 +44,7 @@ const HeaderNavSignedIn: React.FC<{
                     <div className="flex-1 flex">
                         <form
                             className="w-full flex md:ml-0"
-                            action="#"
-                            method="GET"
+                            onSubmit={(e) => e.preventDefault()}
                         >
                             <label htmlFor="search_field" className="sr-only">
                                 Search all files
@@ -50,8 +60,11 @@ const HeaderNavSignedIn: React.FC<{
                                     name="search_field"
                                     id="search_field"
                                     className={styles.searchInput}
-                                    placeholder="Search"
+                                    placeholder={`Search ${
+                                        isDashboard ? 'boards...' : 'columns...'
+                                    }`}
                                     type="search"
+                                    onInput={handleSearch}
                                 />
                             </div>
                         </form>
