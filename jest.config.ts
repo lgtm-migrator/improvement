@@ -1,6 +1,7 @@
-const path = require('path')
+import type { Config } from '@jest/types'
+import path from 'path'
 
-module.exports = {
+const configs: Config.InitialOptions = {
     roots: ['<rootDir>/src/'],
     preset: 'ts-jest',
     testEnvironment: 'jsdom',
@@ -23,3 +24,5 @@ module.exports = {
         // '\\.svg$': '<rootDir>/mocks/svgrMock.tsx',
     },
 }
+
+export default configs
