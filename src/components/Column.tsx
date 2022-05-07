@@ -1,5 +1,5 @@
 import React, { memo, useRef, useState } from 'react'
-import { Draggable, Droppable } from 'react-beautiful-dnd'
+import { Draggable, Droppable } from '@react-forked/dnd'
 import { SendBoardJsonMsg } from 'types/board'
 import { CardData } from 'types/card'
 

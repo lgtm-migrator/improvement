@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
-import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable } from '@react-forked/dnd'
 
 import { useGetOneUserBoardQuery } from 'client/api'
 import { PathParams } from 'types/router'

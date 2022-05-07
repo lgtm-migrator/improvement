@@ -1,4 +1,4 @@
-import { DraggableLocation, DropResult } from 'react-beautiful-dnd'
+import { DraggableLocation, DropResult } from '@react-forked/dnd'
 
 import { Column } from 'types/column'
 import { BoardDndReturnType } from 'types/board'

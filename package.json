@@ -6,11 +6,11 @@
     "dependencies": {
         "@headlessui/react": "^1.6.1",
         "@heroicons/react": "^1.0.6",
+        "@react-forked/dnd": "^14.0.2",
         "@reduxjs/toolkit": "^1.8.1",
         "axios": "^0.27.2",
         "cntl": "^1.0.0",
         "react": "^18.1.0",
-        "react-beautiful-dnd": "^13.1.0",
         "react-dom": "^18.1.0",
         "react-redux": "^8.0.1",
         "react-router-dom": "^6.3.0",

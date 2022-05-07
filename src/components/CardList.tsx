@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import { Draggable } from 'react-beautiful-dnd'
+import { Draggable } from '@react-forked/dnd'
 
 import { CardData } from 'types/card'
 
