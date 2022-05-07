@@ -75,11 +75,11 @@ describe('boards', () => {
     it('should delete a board', () => {
         cy.visit('/dashboard')
 
-        cy.contains('div', 'test board')
+        cy.contains('p', 'test board')
 
         cy.get('[data-test-id="delete-board-0"]').click()
 
-        cy.should('not.contain', 'test board')
+        cy.contains('p', 'test board').should('not.exist')
     })
 })
 

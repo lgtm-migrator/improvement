@@ -20,7 +20,7 @@ import './commands'
 // require('./commands')
 
 Cypress.Screenshot.defaults({
-    screenshotOnRunFailure: false,
+    screenshotOnRunFailure: true,
 })
 
 require('@cypress/skip-test/support')

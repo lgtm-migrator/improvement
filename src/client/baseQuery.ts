@@ -1,5 +1,6 @@
 import { BaseQueryFn } from '@reduxjs/toolkit/query/react'
 import axios, { AxiosRequestConfig, AxiosError } from 'axios'
+import { isObjectWithUnknownProperties } from 'utils/validation'
 
 export type BaseQueryError = {
     status: number | undefined
@@ -48,10 +49,15 @@ export const axiosBaseQuery =
             return { data: result.data }
         } catch (axiosError) {
             const err = axiosError as AxiosError
+            const data = err.response?.data
+            const errMsg =
+                isObjectWithUnknownProperties(data) && 'detail' in data
+                    ? String(data.detail)
+                    : ''
             const errorObj = {
                 error: {
                     status: err.response?.status,
-                    msg: err.response?.data?.detail,
+                    msg: errMsg,
                 },
             }
             return errorObj
