@@ -1,5 +1,5 @@
 import React, { FormEvent, ReactElement, useState } from 'react'
-import { LockClosedIcon } from '@heroicons/react/solid'
+import { LockClosedIcon } from '@heroicons/react/24/solid'
 import { Navigate } from 'react-router-dom'
 
 import { useAccessTokenMutation } from 'client/api'

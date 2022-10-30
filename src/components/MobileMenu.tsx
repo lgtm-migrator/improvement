@@ -1,6 +1,6 @@
 import React, { Fragment, ReactElement } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { XIcon } from '@heroicons/react/outline'
+import { XCircleIcon } from '@heroicons/react/24/outline'
 import { Link, useLocation } from 'react-router-dom'
 
 import { sidebarNavigation } from 'constants/navigation'
@@ -62,7 +62,7 @@ const MobileMenu: React.FC<{
                                         className={styles.closeMobileMenuBtn}
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
-                                        <XIcon
+                                        <XCircleIcon
                                             className="h-6 w-6 text-white"
                                             aria-hidden="true"
                                         />

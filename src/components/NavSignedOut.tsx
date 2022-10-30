@@ -1,7 +1,7 @@
 import React, { Fragment, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 import { Popover, Transition } from '@headlessui/react'
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import styles from './NavSignedOut.styles'
 
@@ -28,7 +28,7 @@ const NavSignedOut: React.FC = (): ReactElement => {
                                     className={styles.mobilePopoverBtn}
                                 >
                                     <span className="sr-only">Open menu</span>
-                                    <MenuIcon
+                                    <Bars3Icon
                                         className="h-6 w-6"
                                         aria-hidden="true"
                                     />
@@ -85,7 +85,7 @@ const NavSignedOut: React.FC = (): ReactElement => {
                                                     <span className="sr-only">
                                                         Close menu
                                                     </span>
-                                                    <XIcon
+                                                    <XMarkIcon
                                                         className="h-6 w-6"
                                                         aria-hidden="true"
                                                     />
