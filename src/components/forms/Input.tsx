@@ -1,5 +1,5 @@
 import React from 'react'
-import { ExclamationCircleIcon } from '@heroicons/react/solid'
+import { ExclamationCircleIcon } from '@heroicons/react/24/solid'
 
 const invalidStyles =
     'border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500'

@@ -2,11 +2,11 @@ import React from 'react'
 
 import {
     CheckCircleIcon,
-    ExclamationIcon,
+    ExclamationCircleIcon,
     InformationCircleIcon,
     XCircleIcon,
-    XIcon,
-} from '@heroicons/react/solid'
+    XMarkIcon,
+} from '@heroicons/react/24/solid'
 import { ToastContainer as BaseToastcontainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -70,7 +70,7 @@ const ToastIcon: React.FC<{ type: ToastType }> = ({ type }) => {
             )
         case 'warning':
             return (
-                <ExclamationIcon
+                <ExclamationCircleIcon
                     className="h-5 w-5 text-yellow-400"
                     aria-hidden="true"
                 />
@@ -106,7 +106,7 @@ export const Toast: React.FC<ToastProps> = ({ type, msg }) => {
                             }
                         >
                             <span className="sr-only">Dismiss</span>
-                            <XIcon className="h-5 w-5" aria-hidden="true" />
+                            <XMarkIcon className="h-5 w-5" aria-hidden="true" />
                         </button>
                     </div>
                 </div>

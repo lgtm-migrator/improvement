@@ -1,6 +1,10 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ChevronRightIcon, PlusIcon, XCircleIcon } from '@heroicons/react/solid'
+import {
+    ChevronRightIcon,
+    PlusIcon,
+    XCircleIcon,
+} from '@heroicons/react/24/solid'
 
 import { useDeleteUserBoardMutation, useListUserBoardsQuery } from 'client/api'
 import Button from 'components/elements/Button'

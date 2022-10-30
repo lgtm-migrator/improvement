@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { DropResult } from '@react-forked/dnd'
+import { DropResult } from '@hello-pangea/dnd'
 
 import { SendBoardJsonMsg } from 'types/board'
 import {
